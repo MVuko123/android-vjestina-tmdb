@@ -1,6 +1,5 @@
 package agency.five.codebase.android.movieapp.ui.component
 
-import agency.five.codebase.android.movieapp.ui.main.Greeting
 import agency.five.codebase.android.movieapp.ui.theme.MovieAppTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -9,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,7 +34,7 @@ data class ActorCardViewState(
             modifier = Modifier.width(100.dp).padding(start = 5.dp, end = 2.dp, top = 3.dp),
             fontWeight = FontWeight.Bold)
         Text(text = "${actorCardViewState.character}",
-            modifier = Modifier.width(100.dp).alpha(ContentAlpha.disabled).padding(start = 5.dp, bottom = 5.dp, end = 2.dp, top = 2.dp),
+            modifier = Modifier.width(100.dp).alpha(ContentAlpha.disabled).padding(start = 5.dp, bottom = 10.dp, end = 2.dp, top = 2.dp),
             fontSize = 10.sp,
         )
     }

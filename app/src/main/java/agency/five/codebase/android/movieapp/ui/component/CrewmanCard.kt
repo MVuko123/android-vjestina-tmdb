@@ -30,7 +30,7 @@ fun CrewmanCard(
     )
 
     Text(text = "${crewmanCardCardViewState.role}",
-    modifier = Modifier.padding(start = 5.dp, end = 5.dp, top = 3.dp, bottom = 3.dp), )
+    modifier = Modifier.padding(start = 5.dp, end = 5.dp, top = 3.dp, bottom = 5.dp), )
 }
 
 @Preview
