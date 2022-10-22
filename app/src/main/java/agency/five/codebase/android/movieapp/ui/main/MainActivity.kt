@@ -2,6 +2,8 @@ package agency.five.codebase.android.movieapp.ui.main
 
 import agency.five.codebase.android.movieapp.ui.component.ActorCard
 import agency.five.codebase.android.movieapp.ui.component.ActorCardViewState
+import agency.five.codebase.android.movieapp.ui.component.CrewmanCard
+import agency.five.codebase.android.movieapp.ui.component.CrewmanCardCardViewState
 import agency.five.codebase.android.movieapp.ui.theme.MovieAppTheme
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -25,19 +27,36 @@ class MainActivity : ComponentActivity() {
             MovieAppTheme {
                 // A surface container using the 'background' color from the theme
                 //Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    //Greeting("Android")
+                //Greeting("Android")
                 //}
-                Surface(color = MaterialTheme.colors.background, modifier = Modifier.padding(10.dp)) {
-                    Card {
-                        Column(
-                            modifier = Modifier
-                                .wrapContentSize()
-                                .clip(RoundedCornerShape(4.dp)),
-                        ) {
-                            ActorCard(actorCardViewState = ActorCardViewState(
-                                "https://pinkmirror.com/getImagePerson.ashx?id=1&&photo_type=photo",
-                                "Robert Downey Jr.",
-                                "TonyStark/IronMan"))
+                Row {
+                    Surface(color = MaterialTheme.colors.background,
+                        modifier = Modifier.padding(10.dp)) {
+                        Card {
+                            Column(
+                                modifier = Modifier
+                                    .wrapContentSize()
+                                    .clip(RoundedCornerShape(4.dp)),
+                            ) {
+                                ActorCard(actorCardViewState = ActorCardViewState(
+                                    "https://pinkmirror.com/getImagePerson.ashx?id=1&&photo_type=photo",
+                                    "Robert Downey Jr.",
+                                    "TonyStark/IronMan"))
+                            }
+                        }
+                    }
+                    Surface(color = MaterialTheme.colors.background,
+                        modifier = Modifier.padding(10.dp)) {
+                        Card {
+                            Column(
+                                modifier = Modifier
+                                    .wrapContentSize()
+                                    .clip(RoundedCornerShape(4.dp)),
+                            ) {
+                                CrewmanCard(crewmanCardCardViewState = CrewmanCardCardViewState(
+                                    "Jon Favreau",
+                                    "Director"))
+                            }
                         }
                     }
                 }
