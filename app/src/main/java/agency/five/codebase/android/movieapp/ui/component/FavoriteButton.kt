@@ -10,8 +10,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
@@ -22,17 +24,22 @@ fun FavoriteButton(
 
 
    var isFavorite by remember { mutableStateOf(false) }
-    Image(
-        painter = painterResource(id = if (isFavorite) R.drawable.heartfull else R.drawable.hearthoutline),
-        contentDescription = null,
-        modifier = modifier
-            .clickable {
-               isFavorite = !isFavorite
-            }
-            .size(60.dp)
-            .background(Favorite, CircleShape)
-            .padding(15.dp)
-    )
+    Surface(
+        shape = CircleShape,
+        color = Color(0x77000000),
+        modifier = modifier.padding(10.dp)
+    ) {
+        Image(
+            painter = painterResource(id = if (isFavorite) R.drawable.heartfull else R.drawable.hearthoutline),
+            contentDescription = null,
+            modifier = modifier
+                .clickable {
+                    isFavorite = !isFavorite
+                }
+                .size(45.dp)
+                .padding(8.dp)
+        )
+    }
 
 }
 
