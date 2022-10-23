@@ -25,18 +25,32 @@ data class ActorCardViewState(
         actorCardViewState: ActorCardViewState,
         modifier: Modifier = Modifier,
     ) {
-        AsyncImage(
-            model = "${actorCardViewState.imageUrl}",
-            contentDescription = null ,
-            modifier = Modifier.width(100.dp)
-        )
-        Text(text = "${actorCardViewState.name}",
-            modifier = Modifier.width(100.dp).padding(start = 5.dp, end = 2.dp, top = 3.dp),
-            fontWeight = FontWeight.Bold)
-        Text(text = "${actorCardViewState.character}",
-            modifier = Modifier.width(100.dp).alpha(ContentAlpha.disabled).padding(start = 5.dp, bottom = 10.dp, end = 2.dp, top = 2.dp),
-            fontSize = 10.sp,
-        )
+        Surface(color = MaterialTheme.colors.background,
+            modifier = Modifier.padding(10.dp)) {
+            Card {
+                Column(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .clip(RoundedCornerShape(4.dp)),
+                ) {
+                    AsyncImage(
+                        model = "${actorCardViewState.imageUrl}",
+                        contentDescription = null,
+                        modifier = Modifier.width(100.dp)
+                    )
+                    Text(text = "${actorCardViewState.name}",
+                        modifier = Modifier.width(100.dp)
+                            .padding(start = 5.dp, end = 2.dp, top = 3.dp),
+                        fontWeight = FontWeight.Bold)
+                    Text(
+                        text = "${actorCardViewState.character}",
+                        modifier = Modifier.width(100.dp).alpha(ContentAlpha.disabled)
+                            .padding(start = 5.dp, bottom = 10.dp, end = 2.dp, top = 2.dp),
+                        fontSize = 10.sp,
+                    )
+                }
+            }
+        }
     }
 
 

@@ -21,28 +21,43 @@ data class MovieCardViewState(
 fun MovieCard(
     movieCardViewState: MovieCardViewState,
     modifier: Modifier = Modifier,
-){
-    AsyncImage(
-        model = "${movieCardViewState.movieImageUrl}",
-        contentDescription = null,
-        modifier = Modifier.fillMaxSize(),
-        contentScale = ContentScale.Crop
-    )
+) {
+    val shape = RoundedCornerShape(12.dp)
+    Box(
+        modifier = Modifier
+            .size(200.dp, 300.dp)
+            .padding(10.dp)
+            .clip(shape)
+            .clickable{
+
+            }
+
+    ) {
+        AsyncImage(
+            model = "${movieCardViewState.movieImageUrl}",
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+
+        FavoriteButton()
+    }
 }
 
 @Preview
 @Composable
 private fun MovieCardPreview(){
     MovieAppTheme {
+        val shape = RoundedCornerShape(12.dp)
         Box(
             modifier = Modifier
-                .clip(RoundedCornerShape(12.dp))
-                .wrapContentSize()
+                .size(200.dp, 300.dp)
+                .padding(10.dp)
+                .clip(shape)
                 .clickable{
-                    
+
                 }
         ){
-            FavoriteButton(modifier = Modifier.padding(10.dp))
             MovieCard(movieCardViewState =
                 MovieCardViewState("https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_FMjpg_UX1000_.jpg")
             )

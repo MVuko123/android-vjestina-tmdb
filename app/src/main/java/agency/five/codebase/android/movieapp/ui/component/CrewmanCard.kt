@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,28 +26,50 @@ fun CrewmanCard(
     crewmanCardCardViewState: CrewmanCardCardViewState,
     modifier: Modifier = Modifier,
 ) {
-    Text( text = "${crewmanCardCardViewState.name}",
-          modifier = Modifier.padding(start = 5.dp, end = 5.dp, top = 3.dp, bottom = 3.dp),
-          fontWeight = FontWeight.Bold
-    )
-
-    Text(text = "${crewmanCardCardViewState.role}",
-    modifier = Modifier.padding(start = 5.dp, end = 5.dp, top = 3.dp, bottom = 5.dp), )
-}
-
-@Preview
-@Composable
-private fun CrewmanCardPreview(){
-    MovieAppTheme {
+    Surface(color = MaterialTheme.colors.background,
+        modifier = Modifier.padding(10.dp)) {
         Card {
             Column(
                 modifier = Modifier
                     .wrapContentSize()
                     .clip(RoundedCornerShape(4.dp)),
             ) {
-                CrewmanCard(crewmanCardCardViewState = CrewmanCardCardViewState(
-                    "Jon Favreau",
-                    "Director"))
+                Text(text = "${crewmanCardCardViewState.name}",
+                    modifier = Modifier.padding(start = 5.dp,
+                        end = 5.dp,
+                        top = 3.dp,
+                        bottom = 3.dp),
+                    fontWeight = FontWeight.Bold
+                )
+
+                Text(
+                    text = "${crewmanCardCardViewState.role}",
+                    modifier = Modifier.padding(start = 5.dp,
+                        end = 5.dp,
+                        top = 3.dp,
+                        bottom = 5.dp),
+                )
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun CrewmanCardPreview(){
+    MovieAppTheme {
+        Surface(color = MaterialTheme.colors.background,
+            modifier = Modifier.padding(10.dp)) {
+            Card {
+                Column(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .clip(RoundedCornerShape(4.dp)),
+                ) {
+                    CrewmanCard(crewmanCardCardViewState = CrewmanCardCardViewState(
+                        "Jon Favreau",
+                        "Director"))
+                }
             }
         }
     }

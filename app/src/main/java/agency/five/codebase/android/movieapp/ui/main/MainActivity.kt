@@ -6,17 +6,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,56 +21,26 @@ class MainActivity : ComponentActivity() {
                 //}
                 Column {
                     Row {
-                        Surface(color = MaterialTheme.colors.background,
-                            modifier = Modifier.padding(10.dp)) {
-                            Card {
-                                Column(
-                                    modifier = Modifier
-                                        .wrapContentSize()
-                                        .clip(RoundedCornerShape(4.dp)),
-                                ) {
-                                    ActorCard(actorCardViewState = ActorCardViewState(
-                                        "https://pinkmirror.com/getImagePerson.ashx?id=1&&photo_type=photo",
-                                        "Robert Downey Jr.",
-                                        "TonyStark/IronMan"))
-                                }
-                            }
-                        }
-                        Surface(color = MaterialTheme.colors.background,
-                            modifier = Modifier.padding(10.dp)) {
-                            Card {
-                                Column(
-                                    modifier = Modifier
-                                        .wrapContentSize()
-                                        .clip(RoundedCornerShape(4.dp)),
-                                ) {
-                                    CrewmanCard(crewmanCardCardViewState = CrewmanCardCardViewState(
-                                        "Jon Favreau",
-                                        "Director"))
-                                }
-                            }
-                        }
+                        ActorCard(actorCardViewState = ActorCardViewState(
+                            "https://pinkmirror.com/getImagePerson.ashx?id=1&&photo_type=photo",
+                            "Robert Downey Jr.",
+                            "TonyStark/IronMan"))
+
+
+                        CrewmanCard(crewmanCardCardViewState = CrewmanCardCardViewState(
+                            "Jon Favreau",
+                            "Director"))
 
                         FavoriteButton()
 
-
                     }
                     Row {
-                        val shape = RoundedCornerShape(12.dp)
-                        Box(
-                            modifier = Modifier
-                                .size(200.dp, 300.dp)
-                                .padding(10.dp)
-                                .clip(shape)
 
-                        ) {
-                            MovieCard(movieCardViewState =
-                            MovieCardViewState("https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_FMjpg_UX1000_.jpg")
-                            )
-                            FavoriteButton()
-                        }
+                        MovieCard(movieCardViewState =
+                        MovieCardViewState("https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_FMjpg_UX1000_.jpg")
+                        )
 
-                        UserScoreProgressBar(percentage = 0.75f )
+                        UserScoreProgressBar(percentage = 0.6f)
 
 
                     }
