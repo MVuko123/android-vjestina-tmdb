@@ -14,7 +14,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 
 data class MovieCardViewState(
-    val movieImageUrl: String
+    val movieImageUrl: String,
 )
 
 @Composable
@@ -28,7 +28,7 @@ fun MovieCard(
             .size(200.dp, 300.dp)
             .padding(10.dp)
             .clip(shape)
-            .clickable{
+            .clickable {
 
             }
 
@@ -46,22 +46,11 @@ fun MovieCard(
 
 @Preview
 @Composable
-private fun MovieCardPreview(){
+private fun MovieCardPreview() {
     MovieAppTheme {
-        val shape = RoundedCornerShape(12.dp)
-        Box(
-            modifier = Modifier
-                .size(200.dp, 300.dp)
-                .padding(10.dp)
-                .clip(shape)
-                .clickable{
-
-                }
-        ){
-            MovieCard(movieCardViewState =
-                MovieCardViewState("https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_FMjpg_UX1000_.jpg")
-            )
-        }
-        
+        MovieCard(movieCardViewState =
+        MovieCardViewState(
+            "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_FMjpg_UX1000_.jpg")
+        )
     }
 }

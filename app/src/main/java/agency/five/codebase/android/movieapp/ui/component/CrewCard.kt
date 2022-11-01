@@ -16,14 +16,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-data class CrewmanCardCardViewState(
+data class CrewCardCardViewState(
     val name: String,
     val role: String,
 )
 
 @Composable
-fun CrewmanCard(
-    crewmanCardCardViewState: CrewmanCardCardViewState,
+fun CrewCard(
+    crewCardCardViewState: CrewCardCardViewState,
     modifier: Modifier = Modifier,
 ) {
     Surface(color = MaterialTheme.colors.background,
@@ -34,20 +34,21 @@ fun CrewmanCard(
                     .wrapContentSize()
                     .clip(RoundedCornerShape(4.dp)),
             ) {
-                Text(text = "${crewmanCardCardViewState.name}",
+                Text(
                     modifier = Modifier.padding(start = 5.dp,
                         end = 5.dp,
                         top = 3.dp,
                         bottom = 3.dp),
+                    text = "${crewCardCardViewState.name}",
                     fontWeight = FontWeight.Bold
                 )
 
                 Text(
-                    text = "${crewmanCardCardViewState.role}",
                     modifier = Modifier.padding(start = 5.dp,
                         end = 5.dp,
                         top = 3.dp,
                         bottom = 5.dp),
+                    text = "${crewCardCardViewState.role}",
                 )
             }
         }
@@ -56,21 +57,10 @@ fun CrewmanCard(
 
 @Preview
 @Composable
-private fun CrewmanCardPreview(){
+private fun CrewCardPreview() {
     MovieAppTheme {
-        Surface(color = MaterialTheme.colors.background,
-            modifier = Modifier.padding(10.dp)) {
-            Card {
-                Column(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .clip(RoundedCornerShape(4.dp)),
-                ) {
-                    CrewmanCard(crewmanCardCardViewState = CrewmanCardCardViewState(
-                        "Jon Favreau",
-                        "Director"))
-                }
-            }
-        }
+        CrewCard(crewCardCardViewState = CrewCardCardViewState(
+            "Jon Favreau",
+            "Director"))
     }
 }

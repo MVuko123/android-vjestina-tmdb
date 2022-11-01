@@ -21,11 +21,9 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun FavoriteButton(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-
-
-   var isFavorite by remember { mutableStateOf(false) }
+    var isFavorite by remember { mutableStateOf(false) }
     Surface(
         shape = CircleShape,
         color = Color(0x77000000),
@@ -47,13 +45,8 @@ fun FavoriteButton(
 
 @Preview
 @Composable
-private fun FavoriteButtonPreview(){
+private fun FavoriteButtonPreview() {
     MovieAppTheme {
         FavoriteButton()
     }
 }
-
-
-
-
-
