@@ -24,7 +24,7 @@ fun MovieCard(
 ) {
     val shape = RoundedCornerShape(12.dp)
     Box(
-        modifier = Modifier
+        modifier = modifier
             .size(200.dp, 300.dp)
             .padding(10.dp)
             .clip(shape)

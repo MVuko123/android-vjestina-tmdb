@@ -25,8 +25,10 @@ fun ActorCard(
     actorCardViewState: ActorCardViewState,
     modifier: Modifier = Modifier,
 ) {
-    Surface(color = MaterialTheme.colors.background,
-        modifier = Modifier.padding(10.dp)) {
+    Surface(
+        color = MaterialTheme.colors.background,
+        modifier = modifier.padding(10.dp))
+    {
         Card {
             Column(
                 modifier = Modifier
@@ -38,14 +40,14 @@ fun ActorCard(
                     contentDescription = null,
                     modifier = Modifier.width(100.dp)
                 )
-                Spacer(modifier = modifier.size(3.dp))
+                Spacer(modifier = Modifier.size(3.dp))
                 Text(
                     modifier = Modifier
                         .width(100.dp)
                         .padding(start = 5.dp, end = 2.dp),
                     text = "${actorCardViewState.name}",
                     fontWeight = FontWeight.Bold)
-                Spacer(modifier = modifier.size(3.dp))
+                Spacer(modifier = Modifier.size(3.dp))
                 Text(
                     modifier = Modifier
                         .width(100.dp)

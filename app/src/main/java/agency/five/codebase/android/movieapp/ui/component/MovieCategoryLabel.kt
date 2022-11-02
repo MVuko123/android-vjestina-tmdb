@@ -34,7 +34,7 @@ data class MovieCategoryLabelViewState(
 @Composable
 fun MovieCategoryLabel(
     movieCategoryLabelViewState: MovieCategoryLabelViewState,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.padding(10.dp)) {
         //var selected = movieCategoryLabelViewState.isSelected
@@ -43,7 +43,7 @@ fun MovieCategoryLabel(
             color = MaterialTheme.colors.background,
             modifier = Modifier.padding(3.dp)
         ) {
-            Column(modifier = modifier.width(intrinsicSize = IntrinsicSize.Max)) {
+            Column(modifier = Modifier.width(intrinsicSize = IntrinsicSize.Max)) {
                 Text(
                     stringResource(id = R.string.app_name),
                     fontWeight = if (selected) {
@@ -51,15 +51,15 @@ fun MovieCategoryLabel(
                     } else {
                         FontWeight.Light
                     },
-                    modifier = modifier
+                    modifier = Modifier
                         .clickable {
                             selected = !selected
                         }
 
                 )
                 if (selected)
-                    Divider(modifier = modifier
-                        .padding( bottom = 4.dp)
+                    Divider(modifier = Modifier
+                        .padding(bottom = 4.dp)
                         .clip(RoundedCornerShape(12.dp))
                         .fillMaxWidth(), thickness = 5.dp, color = Color.Gray)
 

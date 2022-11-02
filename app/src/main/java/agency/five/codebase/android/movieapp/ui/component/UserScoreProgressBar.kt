@@ -24,6 +24,7 @@ fun UserScoreProgressBar(
     percentage: Float,
     radius: Dp = 80.dp,
     animationDuration: Int = 1000,
+    modifier: Modifier = Modifier,
 ) {
     var animFinished by remember {
         mutableStateOf(false)
@@ -42,7 +43,7 @@ fun UserScoreProgressBar(
     }
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier.size(radius * 2)
+        modifier = modifier.size(radius * 2)
     ) {
 
         Canvas(modifier = Modifier.size(radius)) {

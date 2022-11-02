@@ -27,7 +27,7 @@ fun CrewCard(
     modifier: Modifier = Modifier,
 ) {
     Surface(color = MaterialTheme.colors.background,
-        modifier = Modifier.padding(10.dp)) {
+        modifier = modifier.padding(10.dp)) {
         Card {
             Column(
                 modifier = Modifier

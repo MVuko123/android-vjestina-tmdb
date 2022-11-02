@@ -32,7 +32,7 @@ fun FavoriteButton(
         Image(
             painter = painterResource(id = if (isFavorite) R.drawable.heartfull else R.drawable.hearthoutline),
             contentDescription = null,
-            modifier = modifier
+            modifier = Modifier
                 .clickable {
                     isFavorite = !isFavorite
                 }
