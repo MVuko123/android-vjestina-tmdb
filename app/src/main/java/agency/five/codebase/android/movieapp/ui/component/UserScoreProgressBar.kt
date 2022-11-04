@@ -29,7 +29,6 @@ fun UserScoreProgressBar(
     var animFinished by remember {
         mutableStateOf(false)
     }
-
     val currentPercent = animateFloatAsState(
         targetValue = if (animFinished) percentage else 0f,
         animationSpec = tween(
@@ -37,7 +36,6 @@ fun UserScoreProgressBar(
             durationMillis = animationDuration,
         )
     )
-
     LaunchedEffect(key1 = true) {
         animFinished = true
     }
@@ -45,7 +43,6 @@ fun UserScoreProgressBar(
         contentAlignment = Alignment.Center,
         modifier = modifier.size(radius * 2)
     ) {
-
         Canvas(modifier = Modifier.size(radius)) {
             drawArc(
                 color = Color.Green,

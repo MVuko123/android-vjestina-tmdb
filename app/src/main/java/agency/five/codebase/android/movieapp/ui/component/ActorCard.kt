@@ -29,11 +29,10 @@ fun ActorCard(
         color = MaterialTheme.colors.background,
         modifier = modifier.padding(10.dp))
     {
-        Card {
+        Card(shape = RoundedCornerShape(4.dp)) {
             Column(
                 modifier = Modifier
-                    .wrapContentSize()
-                    .clip(RoundedCornerShape(4.dp)),
+                    .wrapContentSize(),
             ) {
                 AsyncImage(
                     model = "${actorCardViewState.imageUrl}",

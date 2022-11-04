@@ -1,6 +1,5 @@
 package agency.five.codebase.android.movieapp.ui.component
 
-
 import agency.five.codebase.android.movieapp.R
 import agency.five.codebase.android.movieapp.ui.theme.Blue
 import agency.five.codebase.android.movieapp.ui.theme.Favorite
@@ -40,7 +39,6 @@ fun FavoriteButton(
                 .padding(8.dp)
         )
     }
-
 }
 
 @Preview

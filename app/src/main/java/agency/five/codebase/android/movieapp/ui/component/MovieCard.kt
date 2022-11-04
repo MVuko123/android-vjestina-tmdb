@@ -1,6 +1,5 @@
 package agency.five.codebase.android.movieapp.ui.component
 
-import agency.five.codebase.android.movieapp.model.Movie
 import agency.five.codebase.android.movieapp.ui.theme.MovieAppTheme
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -31,7 +30,6 @@ fun MovieCard(
             .clickable {
 
             }
-
     ) {
         AsyncImage(
             model = "${movieCardViewState.movieImageUrl}",
@@ -39,7 +37,6 @@ fun MovieCard(
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
-
         FavoriteButton()
     }
 }

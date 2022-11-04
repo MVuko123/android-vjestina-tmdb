@@ -1,7 +1,6 @@
 package agency.five.codebase.android.movieapp.ui.component
 
 import agency.five.codebase.android.movieapp.R
-import android.annotation.SuppressLint
 import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -55,16 +54,13 @@ fun MovieCategoryLabel(
                         .clickable {
                             selected = !selected
                         }
-
                 )
                 if (selected)
                     Divider(modifier = Modifier
                         .padding(bottom = 4.dp)
                         .clip(RoundedCornerShape(12.dp))
                         .fillMaxWidth(), thickness = 5.dp, color = Color.Gray)
-
             }
-
         }
     }
 }
