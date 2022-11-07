@@ -55,11 +55,10 @@ fun UserScoreProgressBar(
                 ),
             )
         }
-        Surface(
-            color = MaterialTheme.colors.background,
-        ) {
-            Text(text = "${percentage * 10}")
-        }
+        Text(
+            text = "${percentage * 10}",
+            color = MaterialTheme.colors.onSurface,
+        )
     }
 }
 

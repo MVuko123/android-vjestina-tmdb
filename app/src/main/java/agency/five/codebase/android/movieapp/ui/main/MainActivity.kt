@@ -32,13 +32,14 @@ class MainActivity : ComponentActivity() {
                         CrewCard(crewCardCardViewState = CrewCardCardViewState(
                             "Jon Favreau",
                             "Director"))
-                        FavoriteButton()
+                        //FavoriteButton()
                     }
                     Row {
-                        MovieCard(movieCardViewState =
+                        /* MovieCard(movieCardViewState =
                         MovieCardViewState(
-                            "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_FMjpg_UX1000_.jpg")
-                        )
+                            "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_FMjpg_UX1000_.jpg",
+                            false)
+                        )*/
                         UserScoreProgressBar(percentage = 0.52f)
                     }
                     Row {

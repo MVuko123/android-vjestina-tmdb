@@ -26,30 +26,30 @@ fun CrewCard(
     crewCardCardViewState: CrewCardCardViewState,
     modifier: Modifier = Modifier,
 ) {
-    Surface(
-        color = MaterialTheme.colors.background,
+    Card(
+        shape = RoundedCornerShape(4.dp),
         modifier = modifier.padding(10.dp)) {
-        Card(shape = RoundedCornerShape(4.dp)) {
-            Column(
-                modifier = Modifier
-                    .wrapContentSize(),
-            ) {
-                Text(
-                    modifier = Modifier.padding(start = 5.dp,
-                        end = 5.dp,
-                        top = 3.dp,
-                        bottom = 3.dp),
-                    text = "${crewCardCardViewState.name}",
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    modifier = Modifier.padding(start = 5.dp,
-                        end = 5.dp,
-                        top = 3.dp,
-                        bottom = 5.dp),
-                    text = "${crewCardCardViewState.role}",
-                )
-            }
+        Column(
+            modifier = Modifier
+                .wrapContentSize(),
+        ) {
+            Text(
+                modifier = Modifier.padding(start = 5.dp,
+                    end = 5.dp,
+                    top = 3.dp,
+                    bottom = 3.dp),
+                text = "${crewCardCardViewState.name}",
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colors.onSurface,
+            )
+            Text(
+                modifier = Modifier.padding(start = 5.dp,
+                    end = 5.dp,
+                    top = 3.dp,
+                    bottom = 5.dp),
+                text = "${crewCardCardViewState.role}",
+                color = MaterialTheme.colors.onSurface,
+            )
         }
     }
 }

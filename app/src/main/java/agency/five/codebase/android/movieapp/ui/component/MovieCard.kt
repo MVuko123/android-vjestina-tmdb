@@ -1,27 +1,35 @@
 package agency.five.codebase.android.movieapp.ui.component
 
+import agency.five.codebase.android.movieapp.mock.MoviesMock
 import agency.five.codebase.android.movieapp.ui.theme.MovieAppTheme
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 
 data class MovieCardViewState(
-    val movieImageUrl: String,
+    val movieImageUrl: String?,
+    val isFavorite: MutableState<Boolean>,
 )
 
 @Composable
 fun MovieCard(
     movieCardViewState: MovieCardViewState,
     modifier: Modifier = Modifier,
+    onClick: () -> Unit,
 ) {
     val shape = RoundedCornerShape(12.dp)
+    var isFavorite = movieCardViewState.isFavorite
     Box(
         modifier = modifier
             .size(200.dp, 300.dp)
@@ -37,17 +45,25 @@ fun MovieCard(
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
-        FavoriteButton()
+        FavoriteButton(isFavorite = movieCardViewState.isFavorite.value) {
+            movieCardViewState.isFavorite.value = it
+        }
     }
 }
+
 
 @Preview
 @Composable
 private fun MovieCardPreview() {
     MovieAppTheme {
-        MovieCard(movieCardViewState =
-        MovieCardViewState(
-            "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_FMjpg_UX1000_.jpg")
+        val movieCard = MoviesMock.getMoviesList()[0]
+        val viewCardState = MovieCardViewState(
+            movieImageUrl = movieCard.imageUrl,
+            isFavorite = rememberSaveable {
+                mutableStateOf(movieCard.isFavorite)
+            }
         )
+        MovieCard(movieCardViewState = viewCardState, onClick = {})
     }
+
 }

@@ -25,37 +25,37 @@ fun ActorCard(
     actorCardViewState: ActorCardViewState,
     modifier: Modifier = Modifier,
 ) {
-    Surface(
-        color = MaterialTheme.colors.background,
-        modifier = modifier.padding(10.dp))
-    {
-        Card(shape = RoundedCornerShape(4.dp)) {
-            Column(
+    Card(
+        shape = RoundedCornerShape(4.dp),
+        modifier = modifier.padding(10.dp)) {
+        Column(
+            modifier = Modifier
+                .wrapContentSize(),
+        ) {
+            AsyncImage(
+                model = "${actorCardViewState.imageUrl}",
+                contentDescription = null,
+                modifier = Modifier.width(100.dp)
+            )
+            Spacer(modifier = Modifier.size(3.dp))
+            Text(
                 modifier = Modifier
-                    .wrapContentSize(),
-            ) {
-                AsyncImage(
-                    model = "${actorCardViewState.imageUrl}",
-                    contentDescription = null,
-                    modifier = Modifier.width(100.dp)
-                )
-                Spacer(modifier = Modifier.size(3.dp))
-                Text(
-                    modifier = Modifier
-                        .width(100.dp)
-                        .padding(start = 5.dp, end = 2.dp),
-                    text = "${actorCardViewState.name}",
-                    fontWeight = FontWeight.Bold)
-                Spacer(modifier = Modifier.size(3.dp))
-                Text(
-                    modifier = Modifier
-                        .width(100.dp)
-                        .alpha(ContentAlpha.disabled)
-                        .padding(start = 5.dp, bottom = 10.dp, end = 2.dp),
-                    text = "${actorCardViewState.character}",
-                    fontSize = 10.sp,
-                )
-            }
+                    .width(100.dp)
+                    .padding(start = 5.dp, end = 2.dp),
+                text = "${actorCardViewState.name}",
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colors.onSurface,
+            )
+            Spacer(modifier = Modifier.size(3.dp))
+            Text(
+                modifier = Modifier
+                    .width(100.dp)
+                    .alpha(ContentAlpha.disabled)
+                    .padding(start = 5.dp, bottom = 10.dp, end = 2.dp),
+                text = "${actorCardViewState.character}",
+                fontSize = 10.sp,
+                color = MaterialTheme.colors.onSurface,
+            )
         }
     }
 }
