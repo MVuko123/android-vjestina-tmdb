@@ -53,15 +53,22 @@ fun MovieDetailsScreen(
     movieDetailsViewState: MovieDetailsViewState,
     modifier: Modifier = Modifier,
 ) {
-    Column (modifier = modifier
-        .fillMaxSize()
-        .verticalScroll(rememberScrollState())) {
-        MovieDetailsBanner(movieDetailsViewState = movieDetailsViewState)
-        Spacer(modifier = Modifier.size(10.dp))
-        MovieDetailsOverview(movieDetailsViewState = movieDetailsViewState)
-        Spacer(modifier = Modifier.size(10.dp))
-        MovieDetailsCast(movieDetailsViewState = movieDetailsViewState)
+    LazyColumn{
+        item {
+            MovieDetailsAll(movieDetailsViewState = movieDetailsViewState)
+        }
     }
+}
+
+@Composable
+fun MovieDetailsAll(
+    movieDetailsViewState: MovieDetailsViewState
+){
+    MovieDetailsBanner(movieDetailsViewState = movieDetailsViewState)
+    Spacer(modifier = Modifier.size(10.dp))
+    MovieDetailsOverview(movieDetailsViewState = movieDetailsViewState)
+    Spacer(modifier = Modifier.size(10.dp))
+    MovieDetailsCast(movieDetailsViewState = movieDetailsViewState)
 }
 
 @Composable
