@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
                             "https://pinkmirror.com/getImagePerson.ashx?id=1&&photo_type=photo",
                             "Robert Downey Jr.",
                             "TonyStark/IronMan"))
-                        CrewCard(crewCardCardViewState = CrewCardCardViewState(
+                        CrewCard(crewCardCardViewState = CrewCardViewState(
                             "Jon Favreau",
                             "Director"))
                         //FavoriteButton()

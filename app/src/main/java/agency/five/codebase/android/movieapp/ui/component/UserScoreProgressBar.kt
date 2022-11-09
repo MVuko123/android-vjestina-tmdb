@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -41,7 +42,7 @@ fun UserScoreProgressBar(
     }
     Box(
         contentAlignment = Alignment.Center,
-        modifier = modifier.size(radius * 2)
+        modifier = modifier.size(45.dp)
     ) {
         Canvas(modifier = Modifier.size(radius)) {
             drawArc(
@@ -50,14 +51,16 @@ fun UserScoreProgressBar(
                 sweepAngle = 360 * currentPercent.value,
                 useCenter = false,
                 style = Stroke(
-                    10.dp.toPx(),
+                    5.dp.toPx(),
                     cap = StrokeCap.Round,
                 ),
             )
         }
         Text(
             text = "${percentage * 10}",
-            color = MaterialTheme.colors.onSurface,
+            //color = MaterialTheme.colors.onSurface,
+            color = Color.White,
+            fontSize = TextUnit.Unspecified
         )
     }
 }

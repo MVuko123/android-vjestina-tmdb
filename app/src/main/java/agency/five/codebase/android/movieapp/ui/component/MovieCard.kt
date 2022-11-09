@@ -29,7 +29,6 @@ fun MovieCard(
     onClick: () -> Unit,
 ) {
     val shape = RoundedCornerShape(12.dp)
-    var isFavorite = movieCardViewState.isFavorite
     Box(
         modifier = modifier
             .size(200.dp, 300.dp)
@@ -45,7 +44,7 @@ fun MovieCard(
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
-        FavoriteButton(isFavorite = movieCardViewState.isFavorite.value) {
+        FavoriteButton(isFavorite = movieCardViewState.isFavorite.value){
             movieCardViewState.isFavorite.value = it
         }
     }

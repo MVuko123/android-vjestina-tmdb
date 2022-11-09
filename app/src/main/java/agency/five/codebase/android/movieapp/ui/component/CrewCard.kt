@@ -7,23 +7,21 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-data class CrewCardCardViewState(
+data class CrewCardViewState(
     val name: String,
     val role: String,
 )
 
 @Composable
 fun CrewCard(
-    crewCardCardViewState: CrewCardCardViewState,
+    crewCardCardViewState: CrewCardViewState,
     modifier: Modifier = Modifier,
 ) {
     Card(
@@ -58,7 +56,7 @@ fun CrewCard(
 @Composable
 private fun CrewCardPreview() {
     MovieAppTheme {
-        CrewCard(crewCardCardViewState = CrewCardCardViewState(
+        CrewCard(crewCardCardViewState = CrewCardViewState(
             "Jon Favreau",
             "Director"))
     }

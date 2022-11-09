@@ -7,7 +7,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -15,7 +14,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
 data class ActorCardViewState(
-    val imageUrl: String,
+    val imageUrl: String?,
     val name: String,
     val character: String,
 )

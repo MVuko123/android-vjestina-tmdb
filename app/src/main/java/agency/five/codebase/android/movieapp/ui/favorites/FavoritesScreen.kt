@@ -34,8 +34,8 @@ fun FavoritesRoute(
         favorite,
         modifier = Modifier.padding(10.dp)
     )
-} */
-
+}
+*/
 @Composable
 fun FavoriteScreen(
     favoritesViewState: FavoritesViewState,
