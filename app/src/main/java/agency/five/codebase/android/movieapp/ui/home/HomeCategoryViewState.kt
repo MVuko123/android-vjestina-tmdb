@@ -1,10 +1,11 @@
 package agency.five.codebase.android.movieapp.ui.home
 
 import agency.five.codebase.android.movieapp.ui.component.MovieCategoryLabelViewState
+import androidx.compose.runtime.MutableState
 
 data class HomeMovieViewState(
     val id: Int,
-    val isFavorite: Boolean,
+    val isFavorite: MutableState<Boolean>,
     val imageUrl: String?,
 )
 

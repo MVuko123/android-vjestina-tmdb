@@ -3,10 +3,11 @@ package agency.five.codebase.android.movieapp.ui.home.mapper
 import agency.five.codebase.android.movieapp.R
 import agency.five.codebase.android.movieapp.model.Movie
 import agency.five.codebase.android.movieapp.model.MovieCategory
+import agency.five.codebase.android.movieapp.ui.component.MovieCategoryLabelTextViewState
 import agency.five.codebase.android.movieapp.ui.component.MovieCategoryLabelViewState
-import agency.five.codebase.android.movieapp.ui.component.MovieCategoryStringRes
 import agency.five.codebase.android.movieapp.ui.home.HomeMovieCategoryViewState
 import agency.five.codebase.android.movieapp.ui.home.HomeMovieViewState
+import androidx.compose.runtime.mutableStateOf
 
 class HomeScreenMapperImpl() : HomeScreenMapper {
     override fun toHomeMovieCategoryViewState(
@@ -18,7 +19,7 @@ class HomeScreenMapperImpl() : HomeScreenMapper {
            MovieCategoryLabelViewState(
                movieCategory.ordinal,
                movieCategory == selectedMovieCategory,
-               MovieCategoryStringRes(
+               MovieCategoryLabelTextViewState.MovieCategoryStringRes(
                    getStringRes(movieCategory)
                ),
            )
@@ -26,7 +27,7 @@ class HomeScreenMapperImpl() : HomeScreenMapper {
            movies.map { movie ->
                HomeMovieViewState(
                    movie.id,
-                   movie.isFavorite,
+                   mutableStateOf(movie.isFavorite),
                    movie.imageUrl
                )
            }

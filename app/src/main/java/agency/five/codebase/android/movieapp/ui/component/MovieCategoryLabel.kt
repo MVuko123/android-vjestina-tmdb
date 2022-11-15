@@ -18,11 +18,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-sealed class MovieCategoryLabelTextViewState()
-
-class MovieCategoryString(val category: String) : MovieCategoryLabelTextViewState() {}
-
-class MovieCategoryStringRes(@StringRes val textRes: Int) : MovieCategoryLabelTextViewState()
+sealed class MovieCategoryLabelTextViewState{
+    class MovieCategoryString(val category: String) : MovieCategoryLabelTextViewState()
+    class MovieCategoryStringRes(@StringRes val textRes: Int) : MovieCategoryLabelTextViewState()
+}
 
 data class MovieCategoryLabelViewState(
     val itemId: Int,
@@ -44,7 +43,7 @@ fun MovieCategoryLabel(
         ) {
             Column(modifier = Modifier.width(intrinsicSize = IntrinsicSize.Max)) {
                 Text(
-                    stringResource(id = R.string.app_name),
+                    textSource(movieCategoryLabelViewState = movieCategoryLabelViewState),
                     fontWeight = if (selected) {
                         FontWeight.Bold
                     } else {
@@ -65,12 +64,21 @@ fun MovieCategoryLabel(
     }
 }
 
+@Composable
+fun textSource(movieCategoryLabelViewState: MovieCategoryLabelViewState): String {
+    val text = movieCategoryLabelViewState.categoryText
+    return when (text) {
+        is MovieCategoryLabelTextViewState.MovieCategoryString -> text.category
+        is MovieCategoryLabelTextViewState.MovieCategoryStringRes -> stringResource(id = text.textRes)
+    }
+}
+
 @Preview
 @Composable
 fun MovieCategoryLabelPreview() {
     MovieCategoryLabel(movieCategoryLabelViewState = MovieCategoryLabelViewState(
         2,
         false,
-        MovieCategoryString("Movies")),
+        MovieCategoryLabelTextViewState.MovieCategoryString("Movies")),
         modifier = Modifier.padding(5.dp))
 }

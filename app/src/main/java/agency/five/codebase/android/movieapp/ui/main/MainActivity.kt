@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
                         MovieCategoryLabel(movieCategoryLabelViewState = MovieCategoryLabelViewState(
                             2,
                             false,
-                            MovieCategoryString("Movies")),
+                            MovieCategoryLabelTextViewState.MovieCategoryString("Movies")),
                             modifier = Modifier.padding(5.dp))
                     }
                 }
