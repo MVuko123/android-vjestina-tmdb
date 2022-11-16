@@ -1,6 +1,7 @@
 package agency.five.codebase.android.movieapp.ui.component
 
 import agency.five.codebase.android.movieapp.ui.theme.MovieAppTheme
+import androidx.annotation.FloatRange
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
@@ -22,7 +23,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun UserScoreProgressBar(
-    percentage: Float,
+    @FloatRange(from = 0.0, to = 1.0) percentage: Float,
     radius: Dp = 80.dp,
     animationDuration: Int = 1000,
     modifier: Modifier = Modifier,

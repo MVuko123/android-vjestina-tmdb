@@ -12,6 +12,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.BlendMode.Companion.Color
 import androidx.compose.ui.graphics.Color
@@ -25,20 +28,22 @@ private val favoritesMapper: FavoritesMapper = FavoritesMapperImpl()
 
 val favoritesMovieViewState = favoritesMapper.toFavoritesViewState(MoviesMock.getMoviesList())
 
-/*
+
 @Composable
 fun FavoritesRoute(
+    onNavigateToMovieDetails: (Int) -> Unit
 ) {
-    val favorite by remember { mutableStateOf(favoritesViewState) }
+    val favorite by remember { mutableStateOf(favoritesMovieViewState) }
     FavoriteScreen(
         favorite,
         modifier = Modifier.padding(10.dp)
     )
 }
-*/
+
 @Composable
 fun FavoriteScreen(
     favoritesViewState: FavoritesViewState,
+    modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
@@ -53,7 +58,7 @@ fun FavoriteScreen(
                 Text(
                     color = MaterialTheme.colors.onSurface,
                     text = "Favorites",
-                    modifier = Modifier.padding(start = 10.dp, top = 10.dp, bottom = 10.dp),
+                    modifier = modifier.padding(start = 10.dp, top = 10.dp, bottom = 10.dp),
                     fontWeight = FontWeight.Bold
                 )
             }

@@ -19,51 +19,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MovieAppTheme {
-                // A surface container using the 'background' color from the theme
-                //Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                //Greeting("Android")
-                //}
-                Column {
-                    Row {
-                        ActorCard(actorCardViewState = ActorCardViewState(
-                            "https://pinkmirror.com/getImagePerson.ashx?id=1&&photo_type=photo",
-                            "Robert Downey Jr.",
-                            "TonyStark/IronMan"))
-                        CrewCard(crewCardCardViewState = CrewCardViewState(
-                            "Jon Favreau",
-                            "Director"))
-                        //FavoriteButton()
-                    }
-                    Row {
-                        /* MovieCard(movieCardViewState =
-                        MovieCardViewState(
-                            "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_FMjpg_UX1000_.jpg",
-                            false)
-                        )*/
-                        UserScoreProgressBar(percentage = 0.52f)
-                    }
-                    Row {
-                        MovieCategoryLabel(movieCategoryLabelViewState = MovieCategoryLabelViewState(
-                            2,
-                            false,
-                            MovieCategoryLabelTextViewState.MovieCategoryString("Movies")),
-                            modifier = Modifier.padding(5.dp))
-                    }
+                    MainScreen()
                 }
             }
         }
     }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     MovieAppTheme {
-        Greeting("Android")
+        MainScreen()
     }
 }

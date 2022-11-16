@@ -31,6 +31,9 @@ import coil.compose.AsyncImage
 import okhttp3.internal.http2.Header
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 
 
@@ -38,16 +41,17 @@ private val movieDetailsMapper: MovieDetailsMapper = MovieDetailsMapperImpl()
 
 val movieDetailsViewState = movieDetailsMapper.toMovieDetailsViewState(MoviesMock.getMovieDetails())
 
-/*
+
 @Composable
-fun xRoute(
+fun MovieDetailsRoute(
 ) {
     val details by remember { mutableStateOf(movieDetailsViewState) }
     MovieDetailsScreen(
         details,
+        modifier = Modifier.padding(10.dp)
     )
 }
-*/
+
 @Composable
 fun MovieDetailsScreen(
     movieDetailsViewState: MovieDetailsViewState,
@@ -55,17 +59,18 @@ fun MovieDetailsScreen(
 ) {
     LazyColumn{
         item {
-            MovieDetailsAll(movieDetailsViewState = movieDetailsViewState)
+            MovieDetailsAll(movieDetailsViewState = movieDetailsViewState, modifier = modifier)
         }
     }
 }
 
 @Composable
 fun MovieDetailsAll(
-    movieDetailsViewState: MovieDetailsViewState
+    movieDetailsViewState: MovieDetailsViewState,
+    modifier: Modifier = Modifier
 ){
     MovieDetailsBanner(movieDetailsViewState = movieDetailsViewState)
-    Spacer(modifier = Modifier.size(10.dp))
+    Spacer(modifier = modifier.size(10.dp))
     MovieDetailsOverview(movieDetailsViewState = movieDetailsViewState)
     Spacer(modifier = Modifier.size(10.dp))
     MovieDetailsCast(movieDetailsViewState = movieDetailsViewState)

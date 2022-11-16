@@ -7,12 +7,10 @@ import agency.five.codebase.android.movieapp.ui.component.MovieCardViewState
 import agency.five.codebase.android.movieapp.ui.component.MovieCategoryLabel
 import agency.five.codebase.android.movieapp.ui.home.mapper.HomeScreenMapper
 import agency.five.codebase.android.movieapp.ui.home.mapper.HomeScreenMapperImpl
-import agency.five.codebase.android.movieapp.ui.moviedetails.MovieDetailsAll
 import agency.five.codebase.android.movieapp.ui.theme.MovieAppTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 
@@ -47,22 +46,29 @@ val popularCategoryViewState = homeScreenMapper.toHomeMovieCategoryViewState(pop
 val nowPlayingCategoryViewState = homeScreenMapper.toHomeMovieCategoryViewState(nowPlayingCategory, MovieCategory.NOW_PLAYING_MOVIES, MoviesMock.getMoviesList())
 val upcomingCategoryViewState = homeScreenMapper.toHomeMovieCategoryViewState(upcomingCategory, MovieCategory.UPCOMING_TODAY, MoviesMock.getMoviesList())
 
-/*
+
 @Composable
 fun HomeRoute(
+    onNavigateToMovieDetails: (Int) -> Unit
 ) {
-    val home by remember { mutableStateOf(xxxViewState) }
+    val popularCategory by remember { mutableStateOf(popularCategoryViewState) }
+    val nowPlayingCategory by remember { mutableStateOf(nowPlayingCategoryViewState) }
+    val upcomingCategory by remember { mutableStateOf(upcomingCategoryViewState) }
     HomeScreen(
-        home,
+        popularCategory,
+        nowPlayingCategory,
+        upcomingCategory,
+        onNavigateToMovieDetails
     )
 }
-*/
+
 
 @Composable
 fun HomeScreen(
     popularCategory : HomeMovieCategoryViewState,
     nowPlayingCategory : HomeMovieCategoryViewState,
-    upcomingCategory : HomeMovieCategoryViewState
+    upcomingCategory : HomeMovieCategoryViewState,
+    onNavigateToMovieDetails: (Int) -> Unit
 ) {
 
     LazyColumn{
@@ -70,7 +76,8 @@ fun HomeScreen(
            AllHomeScreen(
                popularCategory = popularCategory,
                nowPlayingCategory = nowPlayingCategory,
-               upcomingCategory = upcomingCategory
+               upcomingCategory = upcomingCategory,
+               onNavigateToMovieDetails = onNavigateToMovieDetails
            )
         }
     }
@@ -82,11 +89,12 @@ fun AllHomeScreen(
     popularCategory : HomeMovieCategoryViewState,
     nowPlayingCategory : HomeMovieCategoryViewState,
     upcomingCategory : HomeMovieCategoryViewState,
+    onNavigateToMovieDetails: (Int) -> Unit
 ){
 
-    Segments(homeViewState = popularCategory, title = "What's popular")
-    Segments(homeViewState = nowPlayingCategory, title = "Now Playing")
-    Segments(homeViewState = upcomingCategory, title = "Upcoming")
+    Segments(homeViewState = popularCategory, title = "What's popular", onNavigateToMovieDetails = onNavigateToMovieDetails)
+    Segments(homeViewState = nowPlayingCategory, title = "Now Playing", onNavigateToMovieDetails = onNavigateToMovieDetails)
+    Segments(homeViewState = upcomingCategory, title = "Upcoming", onNavigateToMovieDetails = onNavigateToMovieDetails)
 
 }
 
@@ -95,7 +103,8 @@ fun AllHomeScreen(
 fun Segments(
     modifier: Modifier = Modifier,
     homeViewState: HomeMovieCategoryViewState,
-    title : String
+    title : String,
+    onNavigateToMovieDetails: (Int) -> Unit
 ){
     Text(
         text = "${title}",
@@ -133,7 +142,7 @@ fun Segments(
                         .height(200.dp)
                         .width(150.dp),
                     movieCardViewState = MovieCardViewState(movies.imageUrl, movies.isFavorite),
-                    onClick = {}
+                    onClick = {onNavigateToMovieDetails(movies.id)}
                 )
             }
         }
@@ -149,7 +158,8 @@ fun HomeScreenPreview() {
         HomeScreen(
             popularCategory = popularCategoryViewState,
             nowPlayingCategory = nowPlayingCategoryViewState,
-            upcomingCategory = upcomingCategoryViewState
+            upcomingCategory = upcomingCategoryViewState,
+            onNavigateToMovieDetails = {it}
         )
     }
 }
