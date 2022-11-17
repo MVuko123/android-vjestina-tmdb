@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun DefaultPreview() {
     MovieAppTheme {

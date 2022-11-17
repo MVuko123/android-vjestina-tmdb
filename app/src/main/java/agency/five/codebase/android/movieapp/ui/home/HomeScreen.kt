@@ -109,12 +109,12 @@ fun Segments(
     Text(
         text = "${title}",
         color = MaterialTheme.colors.onSurface,
-        modifier = modifier.padding(start = 10.dp, top = 10.dp, bottom = 10.dp),
+        modifier = modifier.padding(start = 20.dp, top = 10.dp),
         fontWeight = FontWeight.Bold
     )
-    Spacer(modifier = Modifier.size(10.dp))
     LazyRow(
-        modifier = Modifier.height(60.dp),
+        modifier = Modifier.height(50.dp),
+        contentPadding = PaddingValues(start = 10.dp),
         content = {
             items(
                 items = homeViewState.movieCategories,
@@ -126,12 +126,10 @@ fun Segments(
         }
     )
     LazyRow(
-        modifier = Modifier.height(220.dp),
+        modifier = Modifier.height(210.dp),
         contentPadding = PaddingValues(
-            start = 12.dp,
-            top = 16.dp,
+            start = 10.dp,
             end = 12.dp,
-            bottom = 16.dp
         ),
         content = {
             items(

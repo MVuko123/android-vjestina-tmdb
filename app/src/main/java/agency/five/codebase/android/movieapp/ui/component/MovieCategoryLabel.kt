@@ -37,10 +37,6 @@ fun MovieCategoryLabel(
     Column(modifier = modifier.padding(10.dp)) {
         //var selected = movieCategoryLabelViewState.isSelected
         var selected by remember { mutableStateOf(false) }
-        Surface(
-            color = MaterialTheme.colors.background,
-            modifier = Modifier.padding(3.dp)
-        ) {
             Column(modifier = Modifier.width(intrinsicSize = IntrinsicSize.Max)) {
                 Text(
                     textSource(movieCategoryLabelViewState = movieCategoryLabelViewState),
@@ -52,7 +48,8 @@ fun MovieCategoryLabel(
                     modifier = Modifier
                         .clickable {
                             selected = !selected
-                        }
+                        },
+                    color = MaterialTheme.colors.onSurface,
                 )
                 if (selected)
                     Divider(modifier = Modifier
@@ -62,7 +59,6 @@ fun MovieCategoryLabel(
             }
         }
     }
-}
 
 @Composable
 fun textSource(movieCategoryLabelViewState: MovieCategoryLabelViewState): String {

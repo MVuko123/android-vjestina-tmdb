@@ -1,21 +1,29 @@
 package agency.five.codebase.android.movieapp.ui.main
 
+import agency.five.codebase.android.movieapp.R
 import agency.five.codebase.android.movieapp.navigation.MOVIE_ID_KEY
 import agency.five.codebase.android.movieapp.navigation.NavigationItem
 import agency.five.codebase.android.movieapp.ui.favorites.FavoritesRoute
 import agency.five.codebase.android.movieapp.ui.home.HomeRoute
 import agency.five.codebase.android.movieapp.ui.moviedetails.MovieDetailsRoute
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
+import android.text.style.BackgroundColorSpan
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -102,14 +110,22 @@ fun MainScreen() {
 private fun TopBar(
     navigationIcon: @Composable (() -> Unit)? = null,
 ) {
-// your code goes here ...
+    Box(modifier = Modifier
+        .background(colorResource(id = R.color.tmdb))
+        .fillMaxWidth()
+        .height(50.dp),
+        contentAlignment = Alignment.Center){
+        Image(painter = painterResource(id = R.drawable.tmdb_logo), contentDescription = null)
+    }
 }
+
+
 @Composable
 private fun BackIcon(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-// your code goes here ...
+    Image(painter = painterResource(id = R.drawable.back_arrow), contentDescription = null, alignment = Alignment.CenterStart)
 }
 @Composable
 private fun BottomNavigationBar(
@@ -121,7 +137,19 @@ private fun BottomNavigationBar(
         backgroundColor = MaterialTheme.colors.background
     ) {
         destinations.forEach { destination ->
-// your code goes here ...
+            //Row{
+            Box ( modifier = Modifier.padding(50.dp)) {
+                Column(horizontalAlignment = CenterHorizontally) {
+                    Image(painter = painterResource(id =
+                    if (currentDestination?.route == destination.route)
+                        destination.selectedIconId
+                    else
+                        destination.unselectedIconId), contentDescription = null
+                    )
+                    Text(text = stringResource(id = destination.labelId))
+                }
+            }
+            //}
         }
     }
 }
