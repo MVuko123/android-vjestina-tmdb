@@ -2,6 +2,7 @@ package agency.five.codebase.android.movieapp.ui.home
 
 import agency.five.codebase.android.movieapp.mock.MoviesMock
 import agency.five.codebase.android.movieapp.model.MovieCategory
+import agency.five.codebase.android.movieapp.navigation.NavigationItem
 import agency.five.codebase.android.movieapp.ui.component.MovieCard
 import agency.five.codebase.android.movieapp.ui.component.MovieCardViewState
 import agency.five.codebase.android.movieapp.ui.component.MovieCategoryLabel
@@ -42,14 +43,23 @@ val upcomingCategory = listOf(
     MovieCategory.UPCOMING_THIS_WEEK
 )
 
-val popularCategoryViewState = homeScreenMapper.toHomeMovieCategoryViewState(popularCategory, MovieCategory.POPULAR_STREAMING, MoviesMock.getMoviesList() )
-val nowPlayingCategoryViewState = homeScreenMapper.toHomeMovieCategoryViewState(nowPlayingCategory, MovieCategory.NOW_PLAYING_MOVIES, MoviesMock.getMoviesList())
-val upcomingCategoryViewState = homeScreenMapper.toHomeMovieCategoryViewState(upcomingCategory, MovieCategory.UPCOMING_TODAY, MoviesMock.getMoviesList())
+val popularCategoryViewState =
+    homeScreenMapper.toHomeMovieCategoryViewState(popularCategory,
+        MovieCategory.POPULAR_STREAMING,
+        MoviesMock.getMoviesList())
+val nowPlayingCategoryViewState =
+    homeScreenMapper.toHomeMovieCategoryViewState(nowPlayingCategory,
+        MovieCategory.NOW_PLAYING_MOVIES,
+        MoviesMock.getMoviesList())
+val upcomingCategoryViewState =
+    homeScreenMapper.toHomeMovieCategoryViewState(upcomingCategory,
+        MovieCategory.UPCOMING_TODAY,
+        MoviesMock.getMoviesList())
 
 
 @Composable
 fun HomeRoute(
-    onNavigateToMovieDetails: (Int) -> Unit
+    onNavigateToMovieDetails: (String) -> Unit,
 ) {
     val popularCategory by remember { mutableStateOf(popularCategoryViewState) }
     val nowPlayingCategory by remember { mutableStateOf(nowPlayingCategoryViewState) }
@@ -65,20 +75,20 @@ fun HomeRoute(
 
 @Composable
 fun HomeScreen(
-    popularCategory : HomeMovieCategoryViewState,
-    nowPlayingCategory : HomeMovieCategoryViewState,
-    upcomingCategory : HomeMovieCategoryViewState,
-    onNavigateToMovieDetails: (Int) -> Unit
+    popularCategory: HomeMovieCategoryViewState,
+    nowPlayingCategory: HomeMovieCategoryViewState,
+    upcomingCategory: HomeMovieCategoryViewState,
+    onNavigateToMovieDetails: (String) -> Unit,
 ) {
 
-    LazyColumn{
+    LazyColumn {
         item {
-           AllHomeScreen(
-               popularCategory = popularCategory,
-               nowPlayingCategory = nowPlayingCategory,
-               upcomingCategory = upcomingCategory,
-               onNavigateToMovieDetails = onNavigateToMovieDetails
-           )
+            AllHomeScreen(
+                popularCategory = popularCategory,
+                nowPlayingCategory = nowPlayingCategory,
+                upcomingCategory = upcomingCategory,
+                onNavigateToMovieDetails = onNavigateToMovieDetails
+            )
         }
     }
 
@@ -86,16 +96,27 @@ fun HomeScreen(
 
 @Composable
 fun AllHomeScreen(
-    popularCategory : HomeMovieCategoryViewState,
-    nowPlayingCategory : HomeMovieCategoryViewState,
-    upcomingCategory : HomeMovieCategoryViewState,
-    onNavigateToMovieDetails: (Int) -> Unit
-){
+    popularCategory: HomeMovieCategoryViewState,
+    nowPlayingCategory: HomeMovieCategoryViewState,
+    upcomingCategory: HomeMovieCategoryViewState,
+    onNavigateToMovieDetails: (String) -> Unit,
+) {
 
-    Segments(homeViewState = popularCategory, title = "What's popular", onNavigateToMovieDetails = onNavigateToMovieDetails)
-    Segments(homeViewState = nowPlayingCategory, title = "Now Playing", onNavigateToMovieDetails = onNavigateToMovieDetails)
-    Segments(homeViewState = upcomingCategory, title = "Upcoming", onNavigateToMovieDetails = onNavigateToMovieDetails)
-
+    Segments(
+        homeViewState = popularCategory,
+        title = "What's popular",
+        onNavigateToMovieDetails = onNavigateToMovieDetails
+    )
+    Segments(
+        homeViewState = nowPlayingCategory,
+        title = "Now Playing",
+        onNavigateToMovieDetails = onNavigateToMovieDetails
+    )
+    Segments(
+        homeViewState = upcomingCategory,
+        title = "Upcoming",
+        onNavigateToMovieDetails = onNavigateToMovieDetails
+    )
 }
 
 
@@ -103,9 +124,9 @@ fun AllHomeScreen(
 fun Segments(
     modifier: Modifier = Modifier,
     homeViewState: HomeMovieCategoryViewState,
-    title : String,
-    onNavigateToMovieDetails: (Int) -> Unit
-){
+    title: String,
+    onNavigateToMovieDetails: (String) -> Unit,
+) {
     Text(
         text = "${title}",
         color = MaterialTheme.colors.onSurface,
@@ -140,14 +161,15 @@ fun Segments(
                         .height(200.dp)
                         .width(150.dp),
                     movieCardViewState = MovieCardViewState(movies.imageUrl, movies.isFavorite),
-                    onClick = {onNavigateToMovieDetails(movies.id)}
+                    onClick = {
+                        onNavigateToMovieDetails(NavigationItem.MovieDetailsDestination.createNavigationRoute(
+                            movies.id))
+                    }
                 )
             }
         }
     )
 }
-
-
 
 @Preview
 @Composable
@@ -157,7 +179,7 @@ fun HomeScreenPreview() {
             popularCategory = popularCategoryViewState,
             nowPlayingCategory = nowPlayingCategoryViewState,
             upcomingCategory = upcomingCategoryViewState,
-            onNavigateToMovieDetails = {it}
+            onNavigateToMovieDetails = { it }
         )
     }
 }

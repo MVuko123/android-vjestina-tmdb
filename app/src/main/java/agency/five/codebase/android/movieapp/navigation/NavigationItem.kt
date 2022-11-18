@@ -20,15 +20,15 @@ sealed class NavigationItem(
         unselectedIconId = R.drawable.ic_home_outlined,
         labelId = R.string.home,
     )
+
     object FavoritesDestination : NavigationItem(
         route = FAVORITES_ROUTE,
         selectedIconId = R.drawable.heartfull,
         unselectedIconId = R.drawable.hearthoutline,
         labelId = R.string.favorites,
     )
+
     object MovieDetailsDestination : MovieAppDestination(MOVIE_DETAILS_ROUTE_WITH_PARAMS) {
         fun createNavigationRoute(movieId: Int): String = "$MOVIE_DETAILS_ROUTE/$movieId"
     }
-
 }
-

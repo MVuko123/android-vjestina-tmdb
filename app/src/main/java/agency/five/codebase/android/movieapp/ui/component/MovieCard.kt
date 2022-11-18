@@ -14,7 +14,6 @@ import coil.compose.AsyncImage
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 
 data class MovieCardViewState(
@@ -34,9 +33,7 @@ fun MovieCard(
             .size(200.dp, 300.dp)
             .padding(10.dp)
             .clip(shape)
-            .clickable {
-
-            }
+            .clickable(onClick = onClick)
     ) {
         AsyncImage(
             model = "${movieCardViewState.movieImageUrl}",
@@ -44,12 +41,11 @@ fun MovieCard(
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
-        FavoriteButton(isFavorite = movieCardViewState.isFavorite.value){
+        FavoriteButton(isFavorite = movieCardViewState.isFavorite.value) {
             movieCardViewState.isFavorite.value = it
         }
     }
 }
-
 
 @Preview
 @Composable
@@ -64,5 +60,4 @@ private fun MovieCardPreview() {
         )
         MovieCard(movieCardViewState = viewCardState, onClick = {})
     }
-
 }

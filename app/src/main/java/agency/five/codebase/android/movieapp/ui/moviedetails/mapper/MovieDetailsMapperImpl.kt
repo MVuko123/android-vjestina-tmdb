@@ -1,8 +1,6 @@
 package agency.five.codebase.android.movieapp.ui.moviedetails.mapper
 
 import agency.five.codebase.android.movieapp.model.MovieDetails
-import agency.five.codebase.android.movieapp.ui.component.ActorCardViewState
-import agency.five.codebase.android.movieapp.ui.component.CrewCardViewState
 import agency.five.codebase.android.movieapp.ui.moviedetails.ActorViewState
 import agency.five.codebase.android.movieapp.ui.moviedetails.CrewViewState
 import agency.five.codebase.android.movieapp.ui.moviedetails.MovieDetailsViewState

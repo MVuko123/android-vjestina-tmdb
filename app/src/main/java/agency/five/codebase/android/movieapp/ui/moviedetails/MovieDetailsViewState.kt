@@ -1,8 +1,5 @@
 package agency.five.codebase.android.movieapp.ui.moviedetails
 
-import agency.five.codebase.android.movieapp.ui.component.ActorCardViewState
-import agency.five.codebase.android.movieapp.ui.component.CrewCardViewState
-
 data class MovieDetailsViewState(
     val id: Int,
     val imageUrl: String?,

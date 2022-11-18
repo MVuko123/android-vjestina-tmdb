@@ -6,20 +6,16 @@ import agency.five.codebase.android.movieapp.navigation.NavigationItem
 import agency.five.codebase.android.movieapp.ui.favorites.FavoritesRoute
 import agency.five.codebase.android.movieapp.ui.home.HomeRoute
 import agency.five.codebase.android.movieapp.ui.moviedetails.MovieDetailsRoute
-import android.text.style.BackgroundColorSpan
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -36,7 +32,7 @@ import androidx.navigation.navArgument
 fun MainScreen() {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val showBottomBar by remember {
+    var showBottomBar by remember {
         mutableStateOf(true)
     }
     val showBackIcon = !showBottomBar
@@ -44,7 +40,12 @@ fun MainScreen() {
         topBar = {
             TopBar(
                 navigationIcon = {
-                    if (showBackIcon) BackIcon(onBackClick = navController::popBackStack)
+                    if (showBackIcon) BackIcon(
+                        onBackClick = {
+                            showBottomBar = showBottomBar.not()
+                            navController.popBackStack()
+                        }
+                    )
                 }
             )
         },
@@ -76,22 +77,18 @@ fun MainScreen() {
                 modifier = Modifier.padding(padding)
             ) {
                 composable(NavigationItem.HomeDestination.route) {
-                    HomeRoute (
+                    HomeRoute(
                         onNavigateToMovieDetails = {
-                            navController.navigate(
-                                NavigationItem.MovieDetailsDestination.createNavigationRoute(movieId = it)
-                            )
-                            showBottomBar.not()
+                            showBottomBar = showBottomBar.not()
+                            navController.navigate(it)
                         }
                     )
                 }
                 composable(NavigationItem.FavoritesDestination.route) {
                     FavoritesRoute(
                         onNavigateToMovieDetails = {
-                            navController.navigate(
-                                NavigationItem.MovieDetailsDestination.createNavigationRoute(movieId = it)
-                            )
-                            showBottomBar.not()
+                            showBottomBar = showBottomBar.not()
+                            navController.navigate(it)
                         }
                     )
                 }
@@ -114,8 +111,13 @@ private fun TopBar(
         .background(colorResource(id = R.color.tmdb))
         .fillMaxWidth()
         .height(50.dp),
-        contentAlignment = Alignment.Center){
-        Image(painter = painterResource(id = R.drawable.tmdb_logo), contentDescription = null)
+        contentAlignment = Alignment.Center)
+    {
+        Image(painter = painterResource(id = R.drawable.tmdb_logo),
+            contentDescription = null)
+        if (navigationIcon != null) {
+            navigationIcon()
+        }
     }
 }
 
@@ -125,8 +127,21 @@ private fun BackIcon(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Image(painter = painterResource(id = R.drawable.back_arrow), contentDescription = null, alignment = Alignment.CenterStart)
+    Box(
+        modifier = modifier
+            .fillMaxSize(),
+        contentAlignment = Alignment.CenterStart
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.back_arrow),
+            contentDescription = null,
+            modifier = Modifier
+                .padding(10.dp)
+                .clickable(onClick = onBackClick)
+        )
+    }
 }
+
 @Composable
 private fun BottomNavigationBar(
     destinations: List<NavigationItem>,
@@ -134,22 +149,31 @@ private fun BottomNavigationBar(
     currentDestination: NavDestination?,
 ) {
     BottomNavigation(
-        backgroundColor = MaterialTheme.colors.background
+        backgroundColor = MaterialTheme.colors.background,
+        contentColor = MaterialTheme.colors.onSurface
     ) {
         destinations.forEach { destination ->
-            //Row{
-            Box ( modifier = Modifier.padding(50.dp)) {
-                Column(horizontalAlignment = CenterHorizontally) {
-                    Image(painter = painterResource(id =
-                    if (currentDestination?.route == destination.route)
-                        destination.selectedIconId
-                    else
-                        destination.unselectedIconId), contentDescription = null
-                    )
-                    Text(text = stringResource(id = destination.labelId))
-                }
-            }
-            //}
+            BottomNavigationItem(
+                currentDestination?.route == destination.route,
+                icon = {
+                    Column(horizontalAlignment = CenterHorizontally) {
+                        Image(painter = painterResource(id =
+                        if (currentDestination?.route == destination.route)
+                            destination.selectedIconId
+                        else
+                            destination.unselectedIconId),
+                            contentDescription =
+                            if (currentDestination?.route == destination.route)
+                                stringResource(id = R.string.home)
+                            else
+                                stringResource(id = R.string.favorites),
+                            colorFilter = ColorFilter.tint(color = MaterialTheme.colors.onBackground)
+                        )
+                        Text(text = stringResource(id = destination.labelId))
+                    }
+                },
+                onClick = { onNavigateToDestination(destination) }
+            )
         }
     }
 }

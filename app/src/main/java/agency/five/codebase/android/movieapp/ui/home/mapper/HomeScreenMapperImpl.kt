@@ -13,29 +13,29 @@ class HomeScreenMapperImpl() : HomeScreenMapper {
     override fun toHomeMovieCategoryViewState(
         movieCategories: List<MovieCategory>,
         selectedMovieCategory: MovieCategory,
-        movies: List<Movie>
+        movies: List<Movie>,
     ): HomeMovieCategoryViewState {
-       return HomeMovieCategoryViewState(movieCategories.map { movieCategory ->
-           MovieCategoryLabelViewState(
-               movieCategory.ordinal,
-               movieCategory == selectedMovieCategory,
-               MovieCategoryLabelTextViewState.MovieCategoryStringRes(
-                   getStringRes(movieCategory)
-               ),
-           )
-       },
-           movies.map { movie ->
-               HomeMovieViewState(
-                   movie.id,
-                   mutableStateOf(movie.isFavorite),
-                   movie.imageUrl
-               )
-           }
-       )
+        return HomeMovieCategoryViewState(movieCategories.map { movieCategory ->
+            MovieCategoryLabelViewState(
+                movieCategory.ordinal,
+                movieCategory == selectedMovieCategory,
+                MovieCategoryLabelTextViewState.MovieCategoryStringRes(
+                    getStringRes(movieCategory)
+                ),
+            )
+        },
+            movies.map { movie ->
+                HomeMovieViewState(
+                    movie.id,
+                    mutableStateOf(movie.isFavorite),
+                    movie.imageUrl
+                )
+            }
+        )
     }
 
     private fun getStringRes(movieCategory: MovieCategory): Int {
-        return when (movieCategory){
+        return when (movieCategory) {
             MovieCategory.POPULAR_STREAMING -> R.string.streaming
             MovieCategory.POPULAR_ON_TV -> R.string.on_tv
             MovieCategory.POPULAR_FOR_RENT -> R.string.for_rent
