@@ -57,7 +57,6 @@ fun UserScoreProgressBar(
         }
         Text(
             text = "${percentage * 10}",
-            //color = MaterialTheme.colors.onSurface,
             color = Color.White,
             fontSize = TextUnit.Unspecified
         )

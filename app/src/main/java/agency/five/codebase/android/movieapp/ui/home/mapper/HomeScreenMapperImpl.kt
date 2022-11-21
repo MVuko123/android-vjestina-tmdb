@@ -14,12 +14,13 @@ class HomeScreenMapperImpl() : HomeScreenMapper {
         movieCategories: List<MovieCategory>,
         selectedMovieCategory: MovieCategory,
         movies: List<Movie>,
-    ): HomeMovieCategoryViewState {
-        return HomeMovieCategoryViewState(movieCategories.map { movieCategory ->
+    ): HomeMovieCategoryViewState =
+        HomeMovieCategoryViewState(movieCategories.map
+        { movieCategory ->
             MovieCategoryLabelViewState(
-                movieCategory.ordinal,
-                movieCategory == selectedMovieCategory,
-                MovieCategoryLabelTextViewState.MovieCategoryStringRes(
+                itemId = movieCategory.ordinal,
+                isSelected = movieCategory == selectedMovieCategory,
+                categoryText = MovieCategoryLabelTextViewState.MovieCategoryStringRes(
                     getStringRes(movieCategory)
                 ),
             )
@@ -27,12 +28,11 @@ class HomeScreenMapperImpl() : HomeScreenMapper {
             movies.map { movie ->
                 HomeMovieViewState(
                     movie.id,
-                    mutableStateOf(movie.isFavorite),
+                    movie.isFavorite,
                     movie.imageUrl
                 )
             }
         )
-    }
 
     private fun getStringRes(movieCategory: MovieCategory): Int {
         return when (movieCategory) {
@@ -45,6 +45,5 @@ class HomeScreenMapperImpl() : HomeScreenMapper {
             MovieCategory.UPCOMING_TODAY -> R.string.today
             MovieCategory.UPCOMING_THIS_WEEK -> R.string.this_week
         }
-
     }
 }

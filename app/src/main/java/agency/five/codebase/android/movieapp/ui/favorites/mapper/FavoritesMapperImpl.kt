@@ -7,15 +7,16 @@ import agency.five.codebase.android.movieapp.ui.favorites.FavoritesViewState
 import androidx.compose.runtime.mutableStateOf
 
 class FavoritesMapperImpl() : FavoritesMapper {
-    override fun toFavoritesViewState(favoriteMovies: List<Movie>): FavoritesViewState {
-        return FavoritesViewState(favoriteMovies.map { movie ->
-            FavoritesMovieViewState(
-                movie.id,
-                MovieCardViewState(
-                    movie.imageUrl,
-                    mutableStateOf(movie.isFavorite)
+    override fun toFavoritesViewState(favoriteMovies: List<Movie>): FavoritesViewState =
+        FavoritesViewState(
+            favoriteMovies.map { movie ->
+                FavoritesMovieViewState(
+                    movie.id,
+                    MovieCardViewState(
+                        movie.imageUrl,
+                        movie.isFavorite
+                    )
                 )
-            )
-        })
-    }
+            }
+        )
 }

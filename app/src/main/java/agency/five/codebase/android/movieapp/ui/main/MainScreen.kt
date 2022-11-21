@@ -111,16 +111,14 @@ private fun TopBar(
         .background(colorResource(id = R.color.tmdb))
         .fillMaxWidth()
         .height(50.dp),
-        contentAlignment = Alignment.Center)
-    {
-        Image(painter = painterResource(id = R.drawable.tmdb_logo),
-            contentDescription = null)
+        contentAlignment = Alignment.Center
+    ) {
+        Image(painter = painterResource(id = R.drawable.tmdb_logo), contentDescription = null)
         if (navigationIcon != null) {
             navigationIcon()
         }
     }
 }
-
 
 @Composable
 private fun BackIcon(
@@ -128,8 +126,7 @@ private fun BackIcon(
     modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier
-            .fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.CenterStart
     ) {
         Image(
@@ -177,4 +174,3 @@ private fun BottomNavigationBar(
         }
     }
 }
-

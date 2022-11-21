@@ -5,7 +5,7 @@ import androidx.compose.runtime.MutableState
 
 data class HomeMovieViewState(
     val id: Int,
-    val isFavorite: MutableState<Boolean>,
+    val isFavorite: Boolean,
     val imageUrl: String?,
 )
 

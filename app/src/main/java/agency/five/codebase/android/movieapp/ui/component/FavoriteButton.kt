@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 fun FavoriteButton(
     modifier: Modifier = Modifier,
     isFavorite: Boolean = false,
-    onClick: (Boolean) -> Unit,
+    favoriteClick: (Boolean) -> Unit,
 ) {
     Surface(
         shape = CircleShape,
@@ -32,7 +32,7 @@ fun FavoriteButton(
             contentDescription = null,
             modifier = Modifier
                 .clickable {
-                    onClick(isFavorite.not())
+                    favoriteClick(isFavorite.not())
                 }
                 .size(35.dp)
                 .padding(8.dp)

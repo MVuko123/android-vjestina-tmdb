@@ -23,6 +23,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,13 +49,11 @@ fun MovieDetailsScreen(
     movieDetailsViewState: MovieDetailsViewState,
     modifier: Modifier = Modifier,
 ) {
-    LazyColumn {
-        item {
-            MovieDetailsAll(
-                movieDetailsViewState = movieDetailsViewState,
-                modifier = modifier
-            )
-        }
+    Column(Modifier.verticalScroll(rememberScrollState())) {
+        MovieDetailsAll(
+            movieDetailsViewState = movieDetailsViewState,
+            modifier = modifier
+        )
     }
 }
 
@@ -79,7 +79,7 @@ fun MovieDetailsBanner(
         .height(400.dp)
     ) {
         AsyncImage(
-            model = "${movieDetailsViewState.imageUrl}",
+            model = movieDetailsViewState.imageUrl,
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
@@ -92,7 +92,8 @@ fun MovieDetailsBanner(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                UserScoreProgressBar(modifier = Modifier.padding(start = 10.dp),
+                UserScoreProgressBar(
+                    modifier = Modifier.padding(start = 10.dp),
                     percentage = movieDetailsViewState.voteAverage)
                 Text(
                     text = "User Score",
@@ -104,13 +105,14 @@ fun MovieDetailsBanner(
             Spacer(modifier = Modifier.size(10.dp))
             Text(
                 modifier = Modifier.padding(start = 10.dp),
-                text = "${movieDetailsViewState.title}",
+                text = movieDetailsViewState.title,
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
             )
             Spacer(modifier = Modifier.size(10.dp))
+            val onFavoriteClick = !movieDetailsViewState.isFavorite
             FavoriteButton(isFavorite = movieDetailsViewState.isFavorite) {
-                !movieDetailsViewState.isFavorite
+                onFavoriteClick
             }
         }
     }
@@ -131,7 +133,7 @@ fun MovieDetailsOverview(
         )
         Spacer(modifier = Modifier.size(5.dp))
         Text(
-            text = "${movieDetailsViewState.overview}",
+            text = movieDetailsViewState.overview,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 10.dp, end = 10.dp),
@@ -146,20 +148,19 @@ fun MovieDetailsOverview(
                 top = 16.dp,
                 end = 12.dp,
                 bottom = 16.dp
-            ),
-            content = {
-                items(
-                    items = movieDetailsViewState.crew,
-                    key = { crew -> crew.id }) { crew ->
-                    CrewCard(
-                        crewCardCardViewState =
-                        CrewCardViewState(
-                            crew.name,
-                            crew.role)
-                    )
-                }
+            )
+        ) {
+            items(
+                items = movieDetailsViewState.crew,
+                key = { crew -> crew.id }) { crew ->
+                CrewCard(crewCardCardViewState =
+                CrewCardViewState(
+                    crew.name,
+                    crew.role
+                )
+                )
             }
-        )
+        }
     }
 }
 
@@ -184,22 +185,22 @@ fun MovieDetailsCast(
                 top = 16.dp,
                 end = 12.dp,
                 bottom = 16.dp
-            ),
-            content = {
-                items(
-                    items = movieDetailsViewState.cast,
-                    key = { cast -> cast.id }) { cast ->
-                    ActorCard(
-                        actorCardViewState =
-                        ActorCardViewState(
-                            cast.imageUrl,
-                            cast.name,
-                            cast.character
-                        )
+            )
+        ) {
+            items(
+                items = movieDetailsViewState.cast,
+                key = { cast -> cast.id }
+            ) { cast ->
+                ActorCard(
+                    actorCardViewState =
+                    ActorCardViewState(
+                        cast.imageUrl,
+                        cast.name,
+                        cast.character
                     )
-                }
+                )
             }
-        )
+        }
     }
 }
 

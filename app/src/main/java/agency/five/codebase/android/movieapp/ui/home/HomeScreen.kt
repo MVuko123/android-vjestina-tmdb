@@ -10,7 +10,6 @@ import agency.five.codebase.android.movieapp.ui.home.mapper.HomeScreenMapper
 import agency.five.codebase.android.movieapp.ui.home.mapper.HomeScreenMapperImpl
 import agency.five.codebase.android.movieapp.ui.theme.MovieAppTheme
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -18,6 +17,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.getValue
@@ -72,7 +73,6 @@ fun HomeRoute(
     )
 }
 
-
 @Composable
 fun HomeScreen(
     popularCategory: HomeMovieCategoryViewState,
@@ -80,18 +80,14 @@ fun HomeScreen(
     upcomingCategory: HomeMovieCategoryViewState,
     onNavigateToMovieDetails: (String) -> Unit,
 ) {
-
-    LazyColumn {
-        item {
-            AllHomeScreen(
-                popularCategory = popularCategory,
-                nowPlayingCategory = nowPlayingCategory,
-                upcomingCategory = upcomingCategory,
-                onNavigateToMovieDetails = onNavigateToMovieDetails
-            )
-        }
+    Column(Modifier.verticalScroll(rememberScrollState())) {
+        AllHomeScreen(
+            popularCategory = popularCategory,
+            nowPlayingCategory = nowPlayingCategory,
+            upcomingCategory = upcomingCategory,
+            onNavigateToMovieDetails = onNavigateToMovieDetails
+        )
     }
-
 }
 
 @Composable
@@ -101,74 +97,74 @@ fun AllHomeScreen(
     upcomingCategory: HomeMovieCategoryViewState,
     onNavigateToMovieDetails: (String) -> Unit,
 ) {
-
-    Segments(
+    Segment(
         homeViewState = popularCategory,
         title = "What's popular",
         onNavigateToMovieDetails = onNavigateToMovieDetails
     )
-    Segments(
+    Segment(
         homeViewState = nowPlayingCategory,
         title = "Now Playing",
         onNavigateToMovieDetails = onNavigateToMovieDetails
     )
-    Segments(
+    Segment(
         homeViewState = upcomingCategory,
         title = "Upcoming",
         onNavigateToMovieDetails = onNavigateToMovieDetails
     )
 }
 
-
 @Composable
-fun Segments(
+fun Segment(
     modifier: Modifier = Modifier,
     homeViewState: HomeMovieCategoryViewState,
     title: String,
     onNavigateToMovieDetails: (String) -> Unit,
 ) {
     Text(
-        text = "${title}",
+        text = title,
         color = MaterialTheme.colors.onSurface,
         modifier = modifier.padding(start = 20.dp, top = 10.dp),
         fontWeight = FontWeight.Bold
     )
     LazyRow(
         modifier = Modifier.height(50.dp),
-        contentPadding = PaddingValues(start = 10.dp),
-        content = {
-            items(
-                items = homeViewState.movieCategories,
-                key = { categories -> categories.itemId }) { categories ->
-                MovieCategoryLabel(
-                    movieCategoryLabelViewState = categories
-                )
-            }
+        contentPadding = PaddingValues(start = 10.dp)
+    ) {
+        items(
+            items = homeViewState.movieCategories,
+            key = { categories -> categories.itemId }
+        ) { categories ->
+            MovieCategoryLabel(
+                movieCategoryLabelViewState = categories
+            )
         }
-    )
+
+    }
     LazyRow(
         modifier = Modifier.height(210.dp),
         contentPadding = PaddingValues(
             start = 10.dp,
             end = 12.dp,
-        ),
-        content = {
-            items(
-                items = homeViewState.movies,
-                key = { movies -> movies.id }) { movies ->
-                MovieCard(
-                    modifier = androidx.compose.ui.Modifier
-                        .height(200.dp)
-                        .width(150.dp),
-                    movieCardViewState = MovieCardViewState(movies.imageUrl, movies.isFavorite),
-                    onClick = {
-                        onNavigateToMovieDetails(NavigationItem.MovieDetailsDestination.createNavigationRoute(
-                            movies.id))
-                    }
-                )
-            }
+        )
+    ) {
+        items(
+            items = homeViewState.movies,
+            key = { movies -> movies.id }
+        ) { movies ->
+            MovieCard(
+                modifier = androidx.compose.ui.Modifier
+                    .height(200.dp)
+                    .width(150.dp),
+                movieCardViewState = MovieCardViewState(movies.imageUrl, movies.isFavorite),
+                toMovieDetails = {
+                    onNavigateToMovieDetails(NavigationItem.MovieDetailsDestination.createNavigationRoute(
+                        movies.id))
+                },
+                onFavoriteClick = {}
+            )
         }
-    )
+    }
 }
 
 @Preview

@@ -6,8 +6,8 @@ import agency.five.codebase.android.movieapp.ui.moviedetails.CrewViewState
 import agency.five.codebase.android.movieapp.ui.moviedetails.MovieDetailsViewState
 
 class MovieDetailsMapperImpl() : MovieDetailsMapper {
-    override fun toMovieDetailsViewState(movieDetails: MovieDetails): MovieDetailsViewState {
-        return MovieDetailsViewState(
+    override fun toMovieDetailsViewState(movieDetails: MovieDetails): MovieDetailsViewState =
+        MovieDetailsViewState(
             movieDetails.movie.id,
             movieDetails.movie.imageUrl,
             movieDetails.voteAverage,
@@ -29,7 +29,5 @@ class MovieDetailsMapperImpl() : MovieDetailsMapper {
                     actor.character
                 )
             }
-
         )
-    }
 }

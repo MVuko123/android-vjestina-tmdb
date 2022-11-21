@@ -27,9 +27,9 @@ val favoritesMovieViewState = favoritesMapper.toFavoritesViewState(MoviesMock.ge
 fun FavoritesRoute(
     onNavigateToMovieDetails: (String) -> Unit,
 ) {
-    val favorite by remember { mutableStateOf(favoritesMovieViewState) }
+    val favoriteState by remember { mutableStateOf(favoritesMovieViewState) }
     FavoriteScreen(
-        favorite,
+        favoriteState,
         modifier = Modifier.padding(10.dp),
         onNavigateToMovieDetails
     )
@@ -47,32 +47,33 @@ fun FavoriteScreen(
             start = 12.dp,
             end = 12.dp,
             bottom = 16.dp
-        ),
-        content = {
-            header {
-                Text(
-                    color = MaterialTheme.colors.onSurface,
-                    text = "Favorites",
-                    modifier = modifier.padding(start = 10.dp, top = 10.dp, bottom = 10.dp),
-                    fontWeight = FontWeight.Bold
-                )
-            }
-            items(
-                items = favoritesViewState.favoritesMovieViewState,
-                key = { movie -> movie.favoriteMovieId }) { movie ->
-                MovieCard(
-                    modifier = Modifier
-                        .height(200.dp)
-                        .width(150.dp),
-                    movieCardViewState = movie.movieCard,
-                    onClick = {
-                        onNavigateToMovieDetails(NavigationItem.MovieDetailsDestination.createNavigationRoute(
-                            movie.favoriteMovieId))
-                    }
-                )
-            }
+        )
+    ) {
+        header {
+            Text(
+                color = MaterialTheme.colors.onSurface,
+                text = "Favorites",
+                modifier = modifier.padding(start = 10.dp, top = 10.dp, bottom = 10.dp),
+                fontWeight = FontWeight.Bold
+            )
         }
-    )
+        items(
+            items = favoritesViewState.favoritesMovieViewState,
+            key = { movie -> movie.favoriteMovieId }
+        ) { movie ->
+            MovieCard(
+                modifier = Modifier
+                    .height(200.dp)
+                    .width(150.dp),
+                movieCardViewState = movie.movieCard,
+                toMovieDetails = {
+                    onNavigateToMovieDetails(NavigationItem.MovieDetailsDestination.createNavigationRoute(
+                        movie.favoriteMovieId))
+                },
+                onFavoriteClick = {}
+            )
+        }
+    }
 }
 
 fun LazyGridScope.header(
@@ -85,6 +86,6 @@ fun LazyGridScope.header(
 @Composable
 fun FavoriteScreenPreview() {
     MovieAppTheme {
-        FavoriteScreen(favoritesViewState = favoritesMovieViewState, modifier = Modifier, {})
+        FavoriteScreen(favoritesViewState = favoritesMovieViewState, modifier = Modifier) {}
     }
 }

@@ -34,15 +34,11 @@ fun MovieCategoryLabel(
 ) {
     Column(modifier = modifier.padding(10.dp)) {
         var selected = movieCategoryLabelViewState.isSelected
-        //var selected by remember { mutableStateOf(false) } needs fixing
         Column(modifier = Modifier.width(intrinsicSize = IntrinsicSize.Max)) {
             Text(
-                textSource(movieCategoryLabelViewState = movieCategoryLabelViewState),
-                fontWeight = if (selected) {
-                    FontWeight.Bold
-                } else {
-                    FontWeight.Light
-                },
+                TextSource(movieCategoryLabelViewState = movieCategoryLabelViewState),
+                fontWeight = if (selected) FontWeight.Bold
+                else FontWeight.Light,
                 modifier = Modifier
                     .clickable {
                         selected = !selected
@@ -53,13 +49,16 @@ fun MovieCategoryLabel(
                 Divider(modifier = Modifier
                     .padding(bottom = 4.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .fillMaxWidth(), thickness = 5.dp, color = Color.Gray)
+                    .fillMaxWidth(),
+                    thickness = 5.dp,
+                    color = Color.Gray
+                )
         }
     }
 }
 
 @Composable
-fun textSource(movieCategoryLabelViewState: MovieCategoryLabelViewState): String {
+fun TextSource(movieCategoryLabelViewState: MovieCategoryLabelViewState): String {
     val text = movieCategoryLabelViewState.categoryText
     return when (text) {
         is MovieCategoryLabelTextViewState.MovieCategoryString -> text.category
@@ -74,5 +73,6 @@ fun MovieCategoryLabelPreview() {
         2,
         false,
         MovieCategoryLabelTextViewState.MovieCategoryString("Movies")),
-        modifier = Modifier.padding(5.dp))
+        modifier = Modifier.padding(5.dp)
+    )
 }
