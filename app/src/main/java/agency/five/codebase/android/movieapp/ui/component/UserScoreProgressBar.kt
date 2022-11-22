@@ -1,13 +1,12 @@
 package agency.five.codebase.android.movieapp.ui.component
 
 import agency.five.codebase.android.movieapp.ui.theme.MovieAppTheme
+import androidx.annotation.FloatRange
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,15 +16,16 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun UserScoreProgressBar(
-    percentage: Float,
-    radius: Dp = 80.dp,
-    animationDuration: Int = 1000,
+    @FloatRange(from = 0.0, to = 1.0) percentage: Float,
     modifier: Modifier = Modifier,
 ) {
+    val radius = 80.dp
+    val animationDuration = 1000
     var animFinished by remember {
         mutableStateOf(false)
     }
@@ -40,8 +40,8 @@ fun UserScoreProgressBar(
         animFinished = true
     }
     Box(
+        modifier = modifier.size(45.dp),
         contentAlignment = Alignment.Center,
-        modifier = modifier.size(radius * 2)
     ) {
         Canvas(modifier = Modifier.size(radius)) {
             drawArc(
@@ -50,16 +50,16 @@ fun UserScoreProgressBar(
                 sweepAngle = 360 * currentPercent.value,
                 useCenter = false,
                 style = Stroke(
-                    10.dp.toPx(),
+                    5.dp.toPx(),
                     cap = StrokeCap.Round,
                 ),
             )
         }
-        Surface(
-            color = MaterialTheme.colors.background,
-        ) {
-            Text(text = "${percentage * 10}")
-        }
+        Text(
+            text = "${percentage * 10}",
+            color = Color.White,
+            fontSize = TextUnit.Unspecified
+        )
     }
 }
 
