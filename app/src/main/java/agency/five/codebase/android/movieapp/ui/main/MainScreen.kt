@@ -104,9 +104,7 @@ fun MainScreen() {
 }
 
 @Composable
-private fun TopBar(
-    navigationIcon: @Composable (() -> Unit)? = null,
-) {
+private fun TopBar(navigationIcon: @Composable (() -> Unit)? = null) {
     Box(
         modifier = Modifier
             .background(colorResource(id = R.color.tmdb))

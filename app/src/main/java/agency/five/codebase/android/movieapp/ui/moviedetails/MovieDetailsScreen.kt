@@ -152,7 +152,8 @@ fun MovieDetailsOverview(
         ) {
             items(
                 items = movieDetailsViewState.crew,
-                key = { crew -> crew.id }) { crew ->
+                key = { crew -> crew.id }
+            ) { crew ->
                 CrewCard(crewCardCardViewState =
                 CrewCardViewState(
                     name = crew.name,
