@@ -36,8 +36,8 @@ fun MovieCategoryLabel(
         var selected = movieCategoryLabelViewState.isSelected
         Column(modifier = Modifier.width(intrinsicSize = IntrinsicSize.Max)) {
             Text(
-                TextSource(movieCategoryLabelViewState = movieCategoryLabelViewState),
                 modifier = Modifier.clickable { selected = !selected },
+                text = TextSource(movieCategoryLabelViewState = movieCategoryLabelViewState),
                 fontWeight = if (selected) FontWeight.Bold else FontWeight.Light,
                 color = MaterialTheme.colors.onSurface,
             )

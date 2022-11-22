@@ -114,10 +114,7 @@ private fun TopBar(
             .height(50.dp),
         contentAlignment = Alignment.Center
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.tmdb_logo),
-            contentDescription = null
-        )
+        Image(painter = painterResource(id = R.drawable.tmdb_logo), contentDescription = null)
         if (navigationIcon != null) {
             navigationIcon()
         }

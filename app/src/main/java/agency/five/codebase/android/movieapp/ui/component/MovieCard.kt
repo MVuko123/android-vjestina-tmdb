@@ -23,8 +23,8 @@ data class MovieCardViewState(
 @Composable
 fun MovieCard(
     movieCardViewState: MovieCardViewState,
-    modifier: Modifier = Modifier,
     toMovieDetails: () -> Unit,
+    modifier: Modifier = Modifier,
     onFavoriteClick: (Boolean) -> Unit,
 ) {
     val shape = RoundedCornerShape(12.dp)

@@ -67,10 +67,7 @@ fun FavoriteScreen(
                     .height(200.dp)
                     .width(150.dp),
                 movieCardViewState = movie.movieCard,
-                toMovieDetails = {
-                    onNavigateToMovieDetails(NavigationItem.MovieDetailsDestination.createNavigationRoute(
-                        movie.favoriteMovieId))
-                },
+                toMovieDetails = { onNavigateToMovieDetails(NavigationItem.MovieDetailsDestination.createNavigationRoute(movie.favoriteMovieId)) },
                 onFavoriteClick = {}
             )
         }

@@ -35,12 +35,10 @@ private val movieDetailsMapper: MovieDetailsMapper = MovieDetailsMapperImpl()
 val movieDetailsViewState = movieDetailsMapper.toMovieDetailsViewState(MoviesMock.getMovieDetails())
 
 @Composable
-fun MovieDetailsRoute(
-    modifier: Modifier = Modifier,
-) {
+fun MovieDetailsRoute(modifier: Modifier = Modifier) {
     val details by remember { mutableStateOf(movieDetailsViewState) }
     MovieDetailsScreen(
-        details,
+        movieDetailsViewState = details,
         modifier = modifier.padding(10.dp),
     )
 }
@@ -157,8 +155,8 @@ fun MovieDetailsOverview(
                 key = { crew -> crew.id }) { crew ->
                 CrewCard(crewCardCardViewState =
                 CrewCardViewState(
-                    crew.name,
-                    crew.role
+                    name = crew.name,
+                    role = crew.role
                 )
                 )
             }
@@ -196,9 +194,9 @@ fun MovieDetailsCast(
                 ActorCard(
                     actorCardViewState =
                     ActorCardViewState(
-                        cast.imageUrl,
-                        cast.name,
-                        cast.character
+                        imageUrl = cast.imageUrl,
+                        name = cast.name,
+                        character = cast.character
                     )
                 )
             }
