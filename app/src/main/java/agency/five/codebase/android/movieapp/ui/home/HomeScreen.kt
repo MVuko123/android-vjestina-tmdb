@@ -66,10 +66,10 @@ fun HomeRoute(
     val nowPlayingCategory by remember { mutableStateOf(nowPlayingCategoryViewState) }
     val upcomingCategory by remember { mutableStateOf(upcomingCategoryViewState) }
     HomeScreen(
-        popularCategory,
-        nowPlayingCategory,
-        upcomingCategory,
-        onNavigateToMovieDetails
+        popularCategory = popularCategory,
+        nowPlayingCategory = nowPlayingCategory,
+        upcomingCategory = upcomingCategory,
+        onNavigateToMovieDetails = onNavigateToMovieDetails
     )
 }
 
@@ -116,15 +116,15 @@ fun AllHomeScreen(
 
 @Composable
 fun Segment(
-    modifier: Modifier = Modifier,
     homeViewState: HomeMovieCategoryViewState,
     title: String,
+    modifier: Modifier = Modifier,
     onNavigateToMovieDetails: (String) -> Unit,
 ) {
     Text(
+        modifier = modifier.padding(start = 20.dp, top = 10.dp),
         text = title,
         color = MaterialTheme.colors.onSurface,
-        modifier = modifier.padding(start = 20.dp, top = 10.dp),
         fontWeight = FontWeight.Bold
     )
     LazyRow(

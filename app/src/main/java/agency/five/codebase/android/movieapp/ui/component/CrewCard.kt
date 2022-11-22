@@ -21,8 +21,8 @@ data class CrewCardViewState(
 
 @Composable
 fun CrewCard(
-    modifier: Modifier = Modifier,
     crewCardCardViewState: CrewCardViewState,
+    modifier: Modifier = Modifier,
 ) {
     Card(
         modifier = modifier.padding(10.dp),

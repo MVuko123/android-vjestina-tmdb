@@ -18,22 +18,22 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun FavoriteButton(
-    modifier: Modifier = Modifier,
     isFavorite: Boolean = false,
+    modifier: Modifier = Modifier,
     favoriteClick: (Boolean) -> Unit,
 ) {
     Surface(
+        modifier = modifier.padding(10.dp),
         shape = CircleShape,
         color = Color(0x77000000),
-        modifier = modifier.padding(10.dp)
     ) {
         Image(
-            painter = painterResource(id = if (isFavorite) R.drawable.heartfull else R.drawable.hearthoutline),
-            contentDescription = null,
             modifier = Modifier
                 .clickable { favoriteClick(isFavorite.not()) }
                 .size(35.dp)
-                .padding(8.dp)
+                .padding(8.dp),
+            painter = painterResource(id = if (isFavorite) R.drawable.heartfull else R.drawable.hearthoutline),
+            contentDescription = null,
         )
     }
 }

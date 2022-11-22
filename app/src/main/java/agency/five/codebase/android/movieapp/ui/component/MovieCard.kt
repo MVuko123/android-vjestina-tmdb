@@ -22,8 +22,8 @@ data class MovieCardViewState(
 
 @Composable
 fun MovieCard(
-    modifier: Modifier = Modifier,
     movieCardViewState: MovieCardViewState,
+    modifier: Modifier = Modifier,
     toMovieDetails: () -> Unit,
     onFavoriteClick: (Boolean) -> Unit,
 ) {
@@ -36,9 +36,9 @@ fun MovieCard(
             .clickable(onClick = toMovieDetails)
     ) {
         AsyncImage(
+            modifier = Modifier.fillMaxSize(),
             model = movieCardViewState.movieImageUrl,
             contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
             placeholder = painterResource(id = R.drawable.error),
             error = painterResource(id = R.drawable.error)

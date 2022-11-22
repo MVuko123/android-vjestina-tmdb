@@ -21,11 +21,11 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun UserScoreProgressBar(
-    modifier: Modifier = Modifier,
     @FloatRange(from = 0.0, to = 1.0) percentage: Float,
-    radius: Dp = 80.dp,
-    animationDuration: Int = 1000,
+    modifier: Modifier = Modifier,
 ) {
+    val radius = 80.dp
+    val animationDuration = 1000
     var animFinished by remember {
         mutableStateOf(false)
     }
@@ -40,8 +40,8 @@ fun UserScoreProgressBar(
         animFinished = true
     }
     Box(
+        modifier = modifier.size(45.dp),
         contentAlignment = Alignment.Center,
-        modifier = modifier.size(45.dp)
     ) {
         Canvas(modifier = Modifier.size(radius)) {
             drawArc(

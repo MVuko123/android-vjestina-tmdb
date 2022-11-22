@@ -23,20 +23,20 @@ data class ActorCardViewState(
 
 @Composable
 fun ActorCard(
-    modifier: Modifier = Modifier,
     actorCardViewState: ActorCardViewState,
+    modifier: Modifier = Modifier,
 ) {
     Card(
+        modifier = modifier.padding(10.dp),
         shape = RoundedCornerShape(4.dp),
-        modifier = modifier.padding(10.dp)
     ) {
         Column(
             modifier = Modifier.wrapContentSize(),
         ) {
             AsyncImage(
+                modifier = Modifier.width(100.dp),
                 model = actorCardViewState.imageUrl,
                 contentDescription = null,
-                modifier = Modifier.width(100.dp),
                 placeholder = painterResource(id = R.drawable.error),
                 error = painterResource(id = R.drawable.error)
             )

@@ -68,13 +68,13 @@ fun MainScreen() {
         }
     ) { padding ->
         Surface(
+            modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background,
-            modifier = Modifier.fillMaxSize()
         ) {
             NavHost(
+                modifier = Modifier.padding(padding),
                 navController = navController,
                 startDestination = NavigationItem.HomeDestination.route,
-                modifier = Modifier.padding(padding)
             ) {
                 composable(NavigationItem.HomeDestination.route) {
                     HomeRoute(
@@ -114,7 +114,10 @@ private fun TopBar(
             .height(50.dp),
         contentAlignment = Alignment.Center
     ) {
-        Image(painter = painterResource(id = R.drawable.tmdb_logo), contentDescription = null)
+        Image(
+            painter = painterResource(id = R.drawable.tmdb_logo),
+            contentDescription = null
+        )
         if (navigationIcon != null) {
             navigationIcon()
         }
@@ -123,19 +126,19 @@ private fun TopBar(
 
 @Composable
 private fun BackIcon(
-    onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onBackClick: () -> Unit,
 ) {
     Box(
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.CenterStart
     ) {
         Image(
-            painter = painterResource(id = R.drawable.back_arrow),
-            contentDescription = null,
             modifier = Modifier
                 .padding(10.dp)
-                .clickable(onClick = onBackClick)
+                .clickable(onClick = onBackClick),
+            painter = painterResource(id = R.drawable.back_arrow),
+            contentDescription = null,
         )
     }
 }
@@ -143,8 +146,8 @@ private fun BackIcon(
 @Composable
 private fun BottomNavigationBar(
     destinations: List<NavigationItem>,
-    onNavigateToDestination: (NavigationItem) -> Unit,
     currentDestination: NavDestination?,
+    onNavigateToDestination: (NavigationItem) -> Unit,
 ) {
     BottomNavigation(
         backgroundColor = MaterialTheme.colors.background,

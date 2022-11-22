@@ -40,28 +40,28 @@ fun MovieDetailsRoute(
 ) {
     val details by remember { mutableStateOf(movieDetailsViewState) }
     MovieDetailsScreen(
-        modifier = modifier.padding(10.dp),
         details,
+        modifier = modifier.padding(10.dp),
     )
 }
 
 @Composable
 fun MovieDetailsScreen(
-    modifier: Modifier = Modifier,
     movieDetailsViewState: MovieDetailsViewState,
+    modifier: Modifier = Modifier,
 ) {
     Column(Modifier.verticalScroll(rememberScrollState())) {
         MovieDetailsAll(
+            modifier = modifier,
             movieDetailsViewState = movieDetailsViewState,
-            modifier = modifier
         )
     }
 }
 
 @Composable
 fun MovieDetailsAll(
-    modifier: Modifier = Modifier,
     movieDetailsViewState: MovieDetailsViewState,
+    modifier: Modifier = Modifier,
 ) {
     MovieDetailsBanner(movieDetailsViewState = movieDetailsViewState)
     Spacer(modifier = modifier.size(10.dp))
@@ -72,8 +72,8 @@ fun MovieDetailsAll(
 
 @Composable
 fun MovieDetailsBanner(
-    modifier: Modifier = Modifier,
     movieDetailsViewState: MovieDetailsViewState,
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
@@ -81,9 +81,9 @@ fun MovieDetailsBanner(
             .height(400.dp)
     ) {
         AsyncImage(
+            modifier = Modifier.fillMaxSize(),
             model = movieDetailsViewState.imageUrl,
             contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
         Column(
@@ -98,9 +98,9 @@ fun MovieDetailsBanner(
                     modifier = Modifier.padding(start = 10.dp),
                     percentage = movieDetailsViewState.voteAverage)
                 Text(
+                    modifier = Modifier.padding(5.dp),
                     text = "User Score",
                     color = Color.White,
-                    modifier = Modifier.padding(5.dp),
                     fontWeight = FontWeight.Bold,
                 )
             }
@@ -122,23 +122,23 @@ fun MovieDetailsBanner(
 
 @Composable
 fun MovieDetailsOverview(
-    modifier: Modifier = Modifier,
     movieDetailsViewState: MovieDetailsViewState,
+    modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
         Text(
+            modifier = Modifier.padding(start = 10.dp, end = 10.dp),
             text = "Overview",
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colors.onSurface,
-            modifier = Modifier.padding(start = 10.dp, end = 10.dp)
         )
         Spacer(modifier = Modifier.size(5.dp))
         Text(
-            text = movieDetailsViewState.overview,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 10.dp, end = 10.dp),
+            text = movieDetailsViewState.overview,
             color = MaterialTheme.colors.onSurface,
         )
         Spacer(modifier = Modifier.size(5.dp))
@@ -168,16 +168,16 @@ fun MovieDetailsOverview(
 
 @Composable
 fun MovieDetailsCast(
-    modifier: Modifier = Modifier,
     movieDetailsViewState: MovieDetailsViewState,
+    modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
         Text(
+            modifier = Modifier.padding(start = 10.dp, end = 10.dp),
             color = MaterialTheme.colors.onSurface,
             text = "Top Billed Cast",
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(start = 10.dp, end = 10.dp)
         )
         Spacer(modifier = Modifier.size(10.dp))
         LazyRow(

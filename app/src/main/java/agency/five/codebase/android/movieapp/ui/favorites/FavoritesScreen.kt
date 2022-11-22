@@ -30,16 +30,16 @@ fun FavoritesRoute(
 ) {
     val favoriteState by remember { mutableStateOf(favoritesMovieViewState) }
     FavoriteScreen(
-        modifier = modifier.padding(10.dp),
         favoritesViewState = favoriteState,
+        modifier = modifier.padding(10.dp),
         onNavigateToMovieDetails = onNavigateToMovieDetails
     )
 }
 
 @Composable
 fun FavoriteScreen(
-    modifier: Modifier = Modifier,
     favoritesViewState: FavoritesViewState,
+    modifier: Modifier = Modifier,
     onNavigateToMovieDetails: (String) -> Unit,
 ) {
     LazyVerticalGrid(
@@ -52,9 +52,9 @@ fun FavoriteScreen(
     ) {
         header {
             Text(
+                modifier = modifier.padding(start = 10.dp, top = 10.dp, bottom = 10.dp),
                 color = MaterialTheme.colors.onSurface,
                 text = "Favorites",
-                modifier = modifier.padding(start = 10.dp, top = 10.dp, bottom = 10.dp),
                 fontWeight = FontWeight.Bold
             )
         }
