@@ -21,15 +21,14 @@ data class CrewCardViewState(
 
 @Composable
 fun CrewCard(
-    crewCardCardViewState: CrewCardViewState,
     modifier: Modifier = Modifier,
+    crewCardCardViewState: CrewCardViewState,
 ) {
     Card(
-        shape = RoundedCornerShape(4.dp),
-        modifier = modifier.padding(10.dp)
+        modifier = modifier.padding(10.dp),
+        shape = RoundedCornerShape(4.dp)
     ) {
-        Column(modifier = Modifier.wrapContentSize())
-        {
+        Column(modifier = Modifier.wrapContentSize()) {
             Text(
                 modifier = Modifier
                     .padding(

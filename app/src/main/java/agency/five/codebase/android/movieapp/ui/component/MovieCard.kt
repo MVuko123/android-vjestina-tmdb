@@ -22,8 +22,8 @@ data class MovieCardViewState(
 
 @Composable
 fun MovieCard(
-    movieCardViewState: MovieCardViewState,
     modifier: Modifier = Modifier,
+    movieCardViewState: MovieCardViewState,
     toMovieDetails: () -> Unit,
     onFavoriteClick: (Boolean) -> Unit,
 ) {

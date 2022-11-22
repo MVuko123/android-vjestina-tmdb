@@ -31,9 +31,7 @@ fun FavoriteButton(
             painter = painterResource(id = if (isFavorite) R.drawable.heartfull else R.drawable.hearthoutline),
             contentDescription = null,
             modifier = Modifier
-                .clickable {
-                    favoriteClick(isFavorite.not())
-                }
+                .clickable { favoriteClick(isFavorite.not()) }
                 .size(35.dp)
                 .padding(8.dp)
         )

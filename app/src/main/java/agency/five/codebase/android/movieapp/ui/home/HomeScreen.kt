@@ -139,7 +139,6 @@ fun Segment(
                 movieCategoryLabelViewState = categories
             )
         }
-
     }
     LazyRow(
         modifier = Modifier.height(210.dp),

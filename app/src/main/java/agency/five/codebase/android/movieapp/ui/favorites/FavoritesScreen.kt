@@ -25,20 +25,21 @@ val favoritesMovieViewState = favoritesMapper.toFavoritesViewState(MoviesMock.ge
 
 @Composable
 fun FavoritesRoute(
+    modifier: Modifier = Modifier,
     onNavigateToMovieDetails: (String) -> Unit,
 ) {
     val favoriteState by remember { mutableStateOf(favoritesMovieViewState) }
     FavoriteScreen(
-        favoriteState,
-        modifier = Modifier.padding(10.dp),
-        onNavigateToMovieDetails
+        modifier = modifier.padding(10.dp),
+        favoritesViewState = favoriteState,
+        onNavigateToMovieDetails = onNavigateToMovieDetails
     )
 }
 
 @Composable
 fun FavoriteScreen(
-    favoritesViewState: FavoritesViewState,
     modifier: Modifier = Modifier,
+    favoritesViewState: FavoritesViewState,
     onNavigateToMovieDetails: (String) -> Unit,
 ) {
     LazyVerticalGrid(

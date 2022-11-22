@@ -11,10 +11,10 @@ class FavoritesMapperImpl() : FavoritesMapper {
         FavoritesViewState(
             favoriteMovies.map { movie ->
                 FavoritesMovieViewState(
-                    movie.id,
-                    MovieCardViewState(
-                        movie.imageUrl,
-                        movie.isFavorite
+                    favoriteMovieId = movie.id,
+                    movieCard = MovieCardViewState(
+                        movieImageUrl = movie.imageUrl,
+                        isFavorite = movie.isFavorite
                     )
                 )
             }

@@ -36,18 +36,19 @@ val movieDetailsViewState = movieDetailsMapper.toMovieDetailsViewState(MoviesMoc
 
 @Composable
 fun MovieDetailsRoute(
+    modifier: Modifier = Modifier,
 ) {
     val details by remember { mutableStateOf(movieDetailsViewState) }
     MovieDetailsScreen(
+        modifier = modifier.padding(10.dp),
         details,
-        modifier = Modifier.padding(10.dp)
     )
 }
 
 @Composable
 fun MovieDetailsScreen(
-    movieDetailsViewState: MovieDetailsViewState,
     modifier: Modifier = Modifier,
+    movieDetailsViewState: MovieDetailsViewState,
 ) {
     Column(Modifier.verticalScroll(rememberScrollState())) {
         MovieDetailsAll(
@@ -59,8 +60,8 @@ fun MovieDetailsScreen(
 
 @Composable
 fun MovieDetailsAll(
-    movieDetailsViewState: MovieDetailsViewState,
     modifier: Modifier = Modifier,
+    movieDetailsViewState: MovieDetailsViewState,
 ) {
     MovieDetailsBanner(movieDetailsViewState = movieDetailsViewState)
     Spacer(modifier = modifier.size(10.dp))
@@ -71,12 +72,13 @@ fun MovieDetailsAll(
 
 @Composable
 fun MovieDetailsBanner(
-    movieDetailsViewState: MovieDetailsViewState,
     modifier: Modifier = Modifier,
+    movieDetailsViewState: MovieDetailsViewState,
 ) {
-    Box(modifier = modifier
-        .fillMaxWidth()
-        .height(400.dp)
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(400.dp)
     ) {
         AsyncImage(
             model = movieDetailsViewState.imageUrl,
@@ -120,8 +122,8 @@ fun MovieDetailsBanner(
 
 @Composable
 fun MovieDetailsOverview(
-    movieDetailsViewState: MovieDetailsViewState,
     modifier: Modifier = Modifier,
+    movieDetailsViewState: MovieDetailsViewState,
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
         Text(
@@ -166,8 +168,8 @@ fun MovieDetailsOverview(
 
 @Composable
 fun MovieDetailsCast(
-    movieDetailsViewState: MovieDetailsViewState,
     modifier: Modifier = Modifier,
+    movieDetailsViewState: MovieDetailsViewState,
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
         Text(

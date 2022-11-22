@@ -15,21 +15,21 @@ class HomeScreenMapperImpl() : HomeScreenMapper {
         selectedMovieCategory: MovieCategory,
         movies: List<Movie>,
     ): HomeMovieCategoryViewState =
-        HomeMovieCategoryViewState(movieCategories.map
-        { movieCategory ->
-            MovieCategoryLabelViewState(
-                itemId = movieCategory.ordinal,
-                isSelected = movieCategory == selectedMovieCategory,
-                categoryText = MovieCategoryLabelTextViewState.MovieCategoryStringRes(
-                    getStringRes(movieCategory)
-                ),
-            )
-        },
+        HomeMovieCategoryViewState(
+            movieCategories.map { movieCategory ->
+                MovieCategoryLabelViewState(
+                    itemId = movieCategory.ordinal,
+                    isSelected = movieCategory == selectedMovieCategory,
+                    categoryText = MovieCategoryLabelTextViewState.MovieCategoryStringRes(
+                        getStringRes(movieCategory)
+                    ),
+                )
+            },
             movies.map { movie ->
                 HomeMovieViewState(
-                    movie.id,
-                    movie.isFavorite,
-                    movie.imageUrl
+                    id = movie.id,
+                    isFavorite = movie.isFavorite,
+                    imageUrl = movie.imageUrl
                 )
             }
         )

@@ -107,10 +107,11 @@ fun MainScreen() {
 private fun TopBar(
     navigationIcon: @Composable (() -> Unit)? = null,
 ) {
-    Box(modifier = Modifier
-        .background(colorResource(id = R.color.tmdb))
-        .fillMaxWidth()
-        .height(50.dp),
+    Box(
+        modifier = Modifier
+            .background(colorResource(id = R.color.tmdb))
+            .fillMaxWidth()
+            .height(50.dp),
         contentAlignment = Alignment.Center
     ) {
         Image(painter = painterResource(id = R.drawable.tmdb_logo), contentDescription = null)

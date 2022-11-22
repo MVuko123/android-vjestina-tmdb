@@ -29,16 +29,15 @@ data class MovieCategoryLabelViewState(
 
 @Composable
 fun MovieCategoryLabel(
-    movieCategoryLabelViewState: MovieCategoryLabelViewState,
     modifier: Modifier = Modifier,
+    movieCategoryLabelViewState: MovieCategoryLabelViewState,
 ) {
     Column(modifier = modifier.padding(10.dp)) {
         var selected = movieCategoryLabelViewState.isSelected
         Column(modifier = Modifier.width(intrinsicSize = IntrinsicSize.Max)) {
             Text(
                 TextSource(movieCategoryLabelViewState = movieCategoryLabelViewState),
-                fontWeight = if (selected) FontWeight.Bold
-                else FontWeight.Light,
+                fontWeight = if (selected) FontWeight.Bold else FontWeight.Light,
                 modifier = Modifier
                     .clickable {
                         selected = !selected

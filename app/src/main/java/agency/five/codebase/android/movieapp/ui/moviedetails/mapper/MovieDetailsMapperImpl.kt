@@ -16,17 +16,17 @@ class MovieDetailsMapperImpl() : MovieDetailsMapper {
             movieDetails.movie.isFavorite,
             movieDetails.crew.map { crewman ->
                 CrewViewState(
-                    crewman.id,
-                    crewman.name,
-                    crewman.job
+                    id = crewman.id,
+                    name = crewman.name,
+                    role = crewman.job
                 )
             },
             movieDetails.cast.map { actor ->
                 ActorViewState(
-                    actor.id,
-                    actor.imageUrl,
-                    actor.name,
-                    actor.character
+                    id = actor.id,
+                    imageUrl = actor.imageUrl,
+                    name = actor.name,
+                    character = actor.character
                 )
             }
         )

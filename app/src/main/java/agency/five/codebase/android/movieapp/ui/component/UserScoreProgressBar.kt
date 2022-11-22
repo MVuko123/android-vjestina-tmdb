@@ -21,10 +21,10 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun UserScoreProgressBar(
+    modifier: Modifier = Modifier,
     @FloatRange(from = 0.0, to = 1.0) percentage: Float,
     radius: Dp = 80.dp,
     animationDuration: Int = 1000,
-    modifier: Modifier = Modifier,
 ) {
     var animFinished by remember {
         mutableStateOf(false)
