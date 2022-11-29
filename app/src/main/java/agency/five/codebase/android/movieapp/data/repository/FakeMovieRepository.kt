@@ -15,7 +15,9 @@ class FakeMovieRepository(
     private val movies: Flow<List<Movie>> =
         FavoritesDBMock.favoriteIds
         .mapLatest { favoriteIds ->
-            fakeMovies
+            fakeMovies.map { movie ->
+                movie.copy(isFavorite = favoriteIds.contains(movie.id))
+            }
         }
         .flowOn(ioDispatcher)
 

@@ -93,20 +93,7 @@ object MoviesMock {
         releaseDate = getMovieDetails().releaseDate,
         language = getMovieDetails().language,
         runtime = getMovieDetails().runtime,
-        crew = List(6) {
-            Crewman(
-                id = it,
-                name = "Jon Favreau",
-                job = "Director",
-            )
-        },
-        cast = List(6) {
-            Actor(
-                id = it,
-                name = "Robert Downey Jr.",
-                character = "Tony Stark/Iron Man",
-                imageUrl = "https://www.themoviedb.org/t/p/w200/5qHNjhtjMD4YWH3UP0rm4tKwxCL.jpg"
-            )
-        },
+        crew = getMovieDetails().crew,
+        cast = getMovieDetails().cast
     )
 }
