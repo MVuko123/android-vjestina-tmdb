@@ -3,25 +3,37 @@ package agency.five.codebase.android.movieapp.ui.favorites
 import agency.five.codebase.android.movieapp.data.repository.MovieRepository
 import agency.five.codebase.android.movieapp.ui.favorites.mapper.FavoritesMapper
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class FavoritesViewModel(
     private val movieRepository: MovieRepository,
-    favoritesMapper: FavoritesMapper,
-// other parameters if needed
+    val favoritesMapper: FavoritesMapper,
 ) : ViewModel() {
-    // private mutable state flows if needed
 
-    val favoritesMovieViewState: StateFlow<FavoritesMovieViewState> = TODO()// your implementation
+    private val _favoritesMovieViewState = MutableStateFlow(FavoritesViewState())
+    val favoritesMovieViewState: StateFlow<FavoritesViewState> =
+        _favoritesMovieViewState.asStateFlow()
 
-    // other view states if needed
-
-    /*
-    fun someAction(...) {
-
+    init {
+        getFavorite()
     }
-    */
 
+    private fun getFavorite() {
+        viewModelScope.launch {
+            movieRepository.favoriteMovies().collect {
+                _favoritesMovieViewState.value = favoritesMapper.toFavoritesViewState(it)
+            }
+        }
+    }
 
-    // other actions
+    fun toggleFav(movieId: Int) {
+        viewModelScope.launch {
+            movieRepository.toggleFavorite(movieId)
+        }
+    }
 }

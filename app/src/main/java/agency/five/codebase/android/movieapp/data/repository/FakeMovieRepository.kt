@@ -29,7 +29,11 @@ class FakeMovieRepository(
         FavoritesDBMock.favoriteIds
             .mapLatest { favoriteIds ->
                 val movieDetails = MoviesMock.getMovieDetails(movieId)
-                movieDetails
+                movieDetails.copy(
+                    movie = movieDetails.movie.copy(
+                        isFavorite = favoriteIds.contains(movieDetails.movie.id)
+                    )
+                )
             }
             .flowOn(ioDispatcher)
 

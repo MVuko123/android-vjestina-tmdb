@@ -1,29 +1,42 @@
 package agency.five.codebase.android.movieapp.ui.moviedetails
 
 import agency.five.codebase.android.movieapp.data.repository.MovieRepository
-import agency.five.codebase.android.movieapp.ui.favorites.FavoritesMovieViewState
-import agency.five.codebase.android.movieapp.ui.favorites.mapper.FavoritesMapper
 import agency.five.codebase.android.movieapp.ui.moviedetails.mapper.MovieDetailsMapper
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
-class MovieDetailsViewModel (
+class MovieDetailsViewModel(
     private val movieRepository: MovieRepository,
-    movieDetailsMapper: MovieDetailsMapper,
-// other parameters if needed
+    val movieDetailsMapper: MovieDetailsMapper,
+    val movieId: Int
 ) : ViewModel() {
-    // private mutable state flows if needed
 
-    val movieDetailsViewState: StateFlow<MovieDetailsViewState> = TODO()// your implementation
+    private val _movieDetailsViewState =
+        MutableStateFlow(MovieDetailsViewState())//(1, "", 0.0f, "", "", false, listOf(), listOf()))
+    val movieDetailsViewState: StateFlow<MovieDetailsViewState> =
+        _movieDetailsViewState.asStateFlow()
 
-    // other view states if needed
-
-    /*
-    fun someAction(...) {
-
+    init {
+        getMovieDetails(movieId)
     }
-    */
 
+     fun getMovieDetails(movieId: Int) {
+        viewModelScope.launch {
+            movieRepository.movieDetails(movieId).collect {
+                _movieDetailsViewState.value = movieDetailsMapper.toMovieDetailsViewState(it)
+            }
+        }
+    }
 
-    // other actions
+    fun toggleFav(movieId: Int) {
+        viewModelScope.launch {
+            movieRepository.toggleFavorite(movieId)
+        }
+    }
+
 }
+
