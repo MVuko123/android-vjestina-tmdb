@@ -11,9 +11,6 @@ import agency.five.codebase.android.movieapp.ui.home.mapper.HomeScreenMapperImpl
 import agency.five.codebase.android.movieapp.ui.theme.MovieAppTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.items
@@ -21,7 +18,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 
@@ -60,11 +57,13 @@ val upcomingCategoryViewState =
 
 @Composable
 fun HomeRoute(
+    homeViewModel: HomeViewModel,
     onNavigateToMovieDetails: (String) -> Unit,
 ) {
-    val popularCategory by remember { mutableStateOf(popularCategoryViewState) }
-    val nowPlayingCategory by remember { mutableStateOf(nowPlayingCategoryViewState) }
-    val upcomingCategory by remember { mutableStateOf(upcomingCategoryViewState) }
+    val popularCategory: HomeMovieCategoryViewState by homeViewModel.popularMoviesHomeViewState.collectAsState()
+    val nowPlayingCategory: HomeMovieCategoryViewState by homeViewModel.nowPlayingMoviesHomeViewState.collectAsState()
+    val upcomingCategory: HomeMovieCategoryViewState by homeViewModel.upcomingMovieHomeViewState.collectAsState()
+
     HomeScreen(
         popularCategory = popularCategory,
         nowPlayingCategory = nowPlayingCategory,
