@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 fun FavoriteButton(
     isFavorite: Boolean = false,
     modifier: Modifier = Modifier,
-    favoriteClick: (Boolean) -> Unit,
+    favoriteClick: () -> Unit,
 ) {
     Surface(
         modifier = modifier.padding(10.dp),
@@ -29,7 +29,7 @@ fun FavoriteButton(
     ) {
         Image(
             modifier = Modifier
-                .clickable { favoriteClick(isFavorite.not()) }
+                .clickable { favoriteClick() }
                 .size(35.dp)
                 .padding(8.dp),
             painter = painterResource(id = if (isFavorite) R.drawable.heartfull else R.drawable.hearthoutline),
@@ -38,6 +38,7 @@ fun FavoriteButton(
     }
 }
 
+/*
 @Preview
 @Composable
 private fun FavoriteButtonPreview() {
@@ -48,3 +49,4 @@ private fun FavoriteButtonPreview() {
         }
     }
 }
+ */

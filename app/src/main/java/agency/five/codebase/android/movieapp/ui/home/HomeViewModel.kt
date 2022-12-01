@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val movieRepository: MovieRepository,
-    homeScreenMapper: HomeScreenMapper,
+    val homeScreenMapper: HomeScreenMapper,
 ) : ViewModel() {
 
     private val _popularMoviesHomeViewState = MutableStateFlow(HomeMovieCategoryViewState())

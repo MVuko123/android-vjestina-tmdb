@@ -35,7 +35,8 @@ fun FavoritesRoute(
     FavoriteScreen(
         favoritesViewState = favoriteState,
         modifier = modifier.padding(10.dp),
-        onNavigateToMovieDetails = onNavigateToMovieDetails
+        onNavigateToMovieDetails = onNavigateToMovieDetails,
+        onFavoriteClick = {favoritesViewModel.toggleFav(it)}
     )
 }
 
@@ -44,6 +45,7 @@ fun FavoriteScreen(
     favoritesViewState: FavoritesViewState,
     modifier: Modifier = Modifier,
     onNavigateToMovieDetails: (String) -> Unit,
+    onFavoriteClick: (Int) -> Unit
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
@@ -71,7 +73,7 @@ fun FavoriteScreen(
                     .width(150.dp),
                 movieCardViewState = movie.movieCard,
                 toMovieDetails = { onNavigateToMovieDetails(NavigationItem.MovieDetailsDestination.createNavigationRoute(movie.favoriteMovieId)) },
-                onFavoriteClick = {}
+                onFavoriteClick = {onFavoriteClick(movie.favoriteMovieId)}
             )
         }
     }
@@ -83,6 +85,7 @@ fun LazyGridScope.header(
     item(span = { GridItemSpan(this.maxLineSpan) }, content = content)
 }
 
+/*
 @Preview
 @Composable
 fun FavoriteScreenPreview() {
@@ -90,3 +93,4 @@ fun FavoriteScreenPreview() {
         FavoriteScreen(favoritesViewState = favoritesMovieViewState, modifier = Modifier) {}
     }
 }
+ */

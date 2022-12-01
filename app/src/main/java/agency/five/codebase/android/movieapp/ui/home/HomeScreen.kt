@@ -6,6 +6,7 @@ import agency.five.codebase.android.movieapp.navigation.NavigationItem
 import agency.five.codebase.android.movieapp.ui.component.MovieCard
 import agency.five.codebase.android.movieapp.ui.component.MovieCardViewState
 import agency.five.codebase.android.movieapp.ui.component.MovieCategoryLabel
+import agency.five.codebase.android.movieapp.ui.component.MovieCategoryLabelViewState
 import agency.five.codebase.android.movieapp.ui.home.mapper.HomeScreenMapper
 import agency.five.codebase.android.movieapp.ui.home.mapper.HomeScreenMapperImpl
 import agency.five.codebase.android.movieapp.ui.theme.MovieAppTheme
@@ -59,7 +60,8 @@ val upcomingCategoryViewState =
 fun HomeRoute(
     homeViewModel: HomeViewModel,
     onNavigateToMovieDetails: (String) -> Unit,
-) {
+
+    ) {
     val popularCategory: HomeMovieCategoryViewState by homeViewModel.popularMoviesHomeViewState.collectAsState()
     val nowPlayingCategory: HomeMovieCategoryViewState by homeViewModel.nowPlayingMoviesHomeViewState.collectAsState()
     val upcomingCategory: HomeMovieCategoryViewState by homeViewModel.upcomingMovieHomeViewState.collectAsState()
@@ -68,7 +70,9 @@ fun HomeRoute(
         popularCategory = popularCategory,
         nowPlayingCategory = nowPlayingCategory,
         upcomingCategory = upcomingCategory,
-        onNavigateToMovieDetails = onNavigateToMovieDetails
+        onNavigateToMovieDetails = onNavigateToMovieDetails,
+        onFavoriteClick = { homeViewModel.toggleFav(it) },
+        onLabelClick = {}
     )
 }
 
@@ -78,13 +82,17 @@ fun HomeScreen(
     nowPlayingCategory: HomeMovieCategoryViewState,
     upcomingCategory: HomeMovieCategoryViewState,
     onNavigateToMovieDetails: (String) -> Unit,
+    onFavoriteClick: (Int) -> Unit,
+    onLabelClick: (Int) -> Unit,
 ) {
     Column(Modifier.verticalScroll(rememberScrollState())) {
         AllHomeScreen(
             popularCategory = popularCategory,
             nowPlayingCategory = nowPlayingCategory,
             upcomingCategory = upcomingCategory,
-            onNavigateToMovieDetails = onNavigateToMovieDetails
+            onNavigateToMovieDetails = onNavigateToMovieDetails,
+            onFavoriteClick = onFavoriteClick,
+            onLabelClick = onLabelClick
         )
     }
 }
@@ -95,21 +103,29 @@ fun AllHomeScreen(
     nowPlayingCategory: HomeMovieCategoryViewState,
     upcomingCategory: HomeMovieCategoryViewState,
     onNavigateToMovieDetails: (String) -> Unit,
+    onFavoriteClick: (Int) -> Unit,
+    onLabelClick: (Int) -> Unit,
 ) {
     Segment(
         homeViewState = popularCategory,
         title = "What's popular",
-        onNavigateToMovieDetails = onNavigateToMovieDetails
+        onNavigateToMovieDetails = onNavigateToMovieDetails,
+        onFavoriteClick = onFavoriteClick,
+        onLabelClick = onLabelClick
     )
     Segment(
         homeViewState = nowPlayingCategory,
         title = "Now Playing",
-        onNavigateToMovieDetails = onNavigateToMovieDetails
+        onNavigateToMovieDetails = onNavigateToMovieDetails,
+        onFavoriteClick = onFavoriteClick,
+        onLabelClick = onLabelClick
     )
     Segment(
         homeViewState = upcomingCategory,
         title = "Upcoming",
-        onNavigateToMovieDetails = onNavigateToMovieDetails
+        onNavigateToMovieDetails = onNavigateToMovieDetails,
+        onFavoriteClick = onFavoriteClick,
+        onLabelClick = onLabelClick
     )
 }
 
@@ -119,6 +135,8 @@ fun Segment(
     title: String,
     modifier: Modifier = Modifier,
     onNavigateToMovieDetails: (String) -> Unit,
+    onFavoriteClick: (Int) -> Unit,
+    onLabelClick: (Int) -> Unit,
 ) {
     Text(
         modifier = modifier.padding(start = 20.dp, top = 10.dp),
@@ -134,8 +152,14 @@ fun Segment(
             items = homeViewState.movieCategories,
             key = { categories -> categories.itemId }
         ) { categories ->
+
             MovieCategoryLabel(
-                movieCategoryLabelViewState = categories
+                movieCategoryLabelViewState = MovieCategoryLabelViewState(
+                    categories.itemId,
+                    categories.isSelected,
+                    categories.categoryText
+                ),
+                onLabelClick = { onLabelClick(categories.itemId) }
             )
         }
     }
@@ -159,12 +183,13 @@ fun Segment(
                     onNavigateToMovieDetails(NavigationItem.MovieDetailsDestination.createNavigationRoute(
                         movies.id))
                 },
-                onFavoriteClick = {}
+                onFavoriteClick = { onFavoriteClick(movies.id) }
             )
         }
     }
 }
 
+/*
 @Preview
 @Composable
 fun HomeScreenPreview() {
@@ -177,3 +202,5 @@ fun HomeScreenPreview() {
         )
     }
 }
+ */
+

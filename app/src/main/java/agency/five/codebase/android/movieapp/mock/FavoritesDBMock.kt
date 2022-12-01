@@ -13,11 +13,9 @@ object FavoritesDBMock {
         }
     }
 
-     fun delete(movieId: Int) {
-       _favoriteIds.update {
-           it.minus(movieId)
-       }
+    fun delete(movieId: Int) {
+        _favoriteIds.update {
+            it.minus(movieId)
+        }
     }
 }
-
-

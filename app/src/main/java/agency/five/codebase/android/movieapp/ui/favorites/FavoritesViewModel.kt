@@ -25,8 +25,8 @@ class FavoritesViewModel(
 
     private fun getFavorite() {
         viewModelScope.launch {
-            movieRepository.favoriteMovies().collect {
-                _favoritesMovieViewState.value = favoritesMapper.toFavoritesViewState(it)
+            movieRepository.favoriteMovies().collect { movie ->
+                _favoritesMovieViewState.value = favoritesMapper.toFavoritesViewState(movie)
             }
         }
     }

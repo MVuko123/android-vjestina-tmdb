@@ -35,13 +35,14 @@ val movieDetailsViewState = movieDetailsMapper.toMovieDetailsViewState(MoviesMoc
 @Composable
 fun MovieDetailsRoute(
     movieDetailsViewModel: MovieDetailsViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-    val details : MovieDetailsViewState by movieDetailsViewModel.movieDetailsViewState.collectAsState()
+    val details: MovieDetailsViewState by movieDetailsViewModel.movieDetailsViewState.collectAsState()
 
     MovieDetailsScreen(
         movieDetailsViewState = details,
         modifier = modifier.padding(10.dp),
+        onFavoriteClick = { movieDetailsViewModel.toggleFav(it) }
     )
 }
 
@@ -49,11 +50,13 @@ fun MovieDetailsRoute(
 fun MovieDetailsScreen(
     movieDetailsViewState: MovieDetailsViewState,
     modifier: Modifier = Modifier,
+    onFavoriteClick: (Int) -> Unit,
 ) {
     Column(Modifier.verticalScroll(rememberScrollState())) {
         MovieDetailsAll(
             modifier = modifier,
             movieDetailsViewState = movieDetailsViewState,
+            onFavoriteClick = onFavoriteClick
         )
     }
 }
@@ -62,8 +65,12 @@ fun MovieDetailsScreen(
 fun MovieDetailsAll(
     movieDetailsViewState: MovieDetailsViewState,
     modifier: Modifier = Modifier,
+    onFavoriteClick: (Int) -> Unit,
 ) {
-    MovieDetailsBanner(movieDetailsViewState = movieDetailsViewState)
+    MovieDetailsBanner(
+        movieDetailsViewState = movieDetailsViewState,
+        onFavoriteClick = onFavoriteClick
+    )
     Spacer(modifier = modifier.size(10.dp))
     MovieDetailsOverview(movieDetailsViewState = movieDetailsViewState)
     Spacer(modifier = Modifier.size(10.dp))
@@ -74,6 +81,7 @@ fun MovieDetailsAll(
 fun MovieDetailsBanner(
     movieDetailsViewState: MovieDetailsViewState,
     modifier: Modifier = Modifier,
+    onFavoriteClick: (Int) -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -112,10 +120,12 @@ fun MovieDetailsBanner(
                 fontWeight = FontWeight.Bold,
             )
             Spacer(modifier = Modifier.size(10.dp))
-            val onFavoriteClick = !movieDetailsViewState.isFavorite
-            FavoriteButton(isFavorite = movieDetailsViewState.isFavorite) {
-                onFavoriteClick
-            }
+            FavoriteButton(
+                isFavorite = movieDetailsViewState.isFavorite,
+                favoriteClick = {
+                    onFavoriteClick(movieDetailsViewState.id
+                    )
+                })
         }
     }
 }
@@ -207,6 +217,7 @@ fun MovieDetailsCast(
     }
 }
 
+/*
 @Preview
 @Composable
 fun MovieDetailsScreenPreview() {
@@ -215,4 +226,4 @@ fun MovieDetailsScreenPreview() {
             movieDetailsViewState = movieDetailsViewState
         )
     }
-}
+} */

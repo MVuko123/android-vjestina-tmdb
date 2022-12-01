@@ -14,12 +14,12 @@ class FakeMovieRepository(
     private val fakeMovies = MoviesMock.getMoviesList().toMutableList()
     private val movies: Flow<List<Movie>> =
         FavoritesDBMock.favoriteIds
-        .mapLatest { favoriteIds ->
-            fakeMovies.map { movie ->
-                movie.copy(isFavorite = favoriteIds.contains(movie.id))
+            .mapLatest { favoriteIds ->
+                fakeMovies.map { movie ->
+                    movie.copy(isFavorite = favoriteIds.contains(movie.id))
+                }
             }
-        }
-        .flowOn(ioDispatcher)
+            .flowOn(ioDispatcher)
 
 
     override fun popularMovies(movieCategory: MovieCategory): Flow<List<Movie>> = movies
@@ -56,4 +56,3 @@ class FakeMovieRepository(
             addMovieToFavorites(movieId)
         }
 }
-
