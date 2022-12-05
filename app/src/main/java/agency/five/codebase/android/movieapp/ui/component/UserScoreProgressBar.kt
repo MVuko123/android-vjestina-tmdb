@@ -1,5 +1,6 @@
 package agency.five.codebase.android.movieapp.ui.component
 
+import agency.five.codebase.android.movieapp.ui.theme.LightGreen
 import agency.five.codebase.android.movieapp.ui.theme.MovieAppTheme
 import androidx.annotation.FloatRange
 import androidx.compose.animation.core.animateFloatAsState
@@ -44,6 +45,16 @@ fun UserScoreProgressBar(
         contentAlignment = Alignment.Center,
     ) {
         Canvas(modifier = Modifier.size(radius)) {
+            drawArc(
+                color = LightGreen,
+                startAngle = -90f,
+                sweepAngle = 360f,
+                useCenter = false,
+                style = Stroke(
+                    5.dp.toPx(),
+                    cap = StrokeCap.Round,
+                ),
+            )
             drawArc(
                 color = Color.Green,
                 startAngle = -90f,

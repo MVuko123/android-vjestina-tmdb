@@ -38,15 +38,11 @@ fun FavoriteButton(
     }
 }
 
-/*
 @Preview
 @Composable
 private fun FavoriteButtonPreview() {
     var isFavorite by rememberSaveable { mutableStateOf(false) }
     MovieAppTheme {
-        FavoriteButton(isFavorite = isFavorite) {
-            isFavorite = it
-        }
+        FavoriteButton(isFavorite = isFavorite, favoriteClick = {})
     }
 }
- */

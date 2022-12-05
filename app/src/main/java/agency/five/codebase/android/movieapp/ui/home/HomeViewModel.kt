@@ -2,8 +2,6 @@ package agency.five.codebase.android.movieapp.ui.home
 
 import agency.five.codebase.android.movieapp.data.repository.MovieRepository
 import agency.five.codebase.android.movieapp.model.MovieCategory
-import agency.five.codebase.android.movieapp.ui.favorites.FavoritesMovieViewState
-import agency.five.codebase.android.movieapp.ui.favorites.mapper.FavoritesMapper
 import agency.five.codebase.android.movieapp.ui.home.mapper.HomeScreenMapper
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -28,9 +26,6 @@ class HomeViewModel(
     private val _upcomingMovieHomeViewState = MutableStateFlow(HomeMovieCategoryViewState())
     val upcomingMovieHomeViewState: StateFlow<HomeMovieCategoryViewState> =
         _upcomingMovieHomeViewState.asStateFlow()
-
-    //private val _homeViewState = MutableStateFlow(HomeMovieCategoryViewState())
-    //val homeViewState: StateFlow<HomeMovieCategoryViewState> = _homeViewState.asStateFlow()
 
     init {
         getPopular(homeScreenMapper)

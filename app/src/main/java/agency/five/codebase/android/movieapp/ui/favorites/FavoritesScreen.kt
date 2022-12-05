@@ -18,8 +18,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-
-
 private val favoritesMapper: FavoritesMapper = FavoritesMapperImpl()
 
 val favoritesMovieViewState = favoritesMapper.toFavoritesViewState(MoviesMock.getMoviesList())
@@ -30,13 +28,13 @@ fun FavoritesRoute(
     modifier: Modifier = Modifier,
     onNavigateToMovieDetails: (String) -> Unit,
 ) {
-    val favoriteState : FavoritesViewState by favoritesViewModel.favoritesMovieViewState.collectAsState()
+    val favoriteState: FavoritesViewState by favoritesViewModel.favoritesMovieViewState.collectAsState()
 
     FavoriteScreen(
         favoritesViewState = favoriteState,
         modifier = modifier.padding(10.dp),
         onNavigateToMovieDetails = onNavigateToMovieDetails,
-        onFavoriteClick = {favoritesViewModel.toggleFav(it)}
+        onFavoriteClick = { favoritesViewModel.toggleFav(it) }
     )
 }
 
@@ -45,7 +43,7 @@ fun FavoriteScreen(
     favoritesViewState: FavoritesViewState,
     modifier: Modifier = Modifier,
     onNavigateToMovieDetails: (String) -> Unit,
-    onFavoriteClick: (Int) -> Unit
+    onFavoriteClick: (Int) -> Unit,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
@@ -72,8 +70,11 @@ fun FavoriteScreen(
                     .height(200.dp)
                     .width(150.dp),
                 movieCardViewState = movie.movieCard,
-                toMovieDetails = { onNavigateToMovieDetails(NavigationItem.MovieDetailsDestination.createNavigationRoute(movie.favoriteMovieId)) },
-                onFavoriteClick = {onFavoriteClick(movie.favoriteMovieId)}
+                toMovieDetails = {
+                    onNavigateToMovieDetails(NavigationItem.MovieDetailsDestination.createNavigationRoute(
+                        movie.favoriteMovieId))
+                },
+                onFavoriteClick = { onFavoriteClick(movie.favoriteMovieId) }
             )
         }
     }
@@ -85,12 +86,15 @@ fun LazyGridScope.header(
     item(span = { GridItemSpan(this.maxLineSpan) }, content = content)
 }
 
-/*
 @Preview
 @Composable
 fun FavoriteScreenPreview() {
     MovieAppTheme {
-        FavoriteScreen(favoritesViewState = favoritesMovieViewState, modifier = Modifier) {}
+        FavoriteScreen(
+            favoritesViewState = favoritesMovieViewState,
+            modifier = Modifier,
+            onNavigateToMovieDetails = {},
+            onFavoriteClick = {}
+        )
     }
 }
- */

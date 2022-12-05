@@ -31,7 +31,7 @@ data class MovieCategoryLabelViewState(
 fun MovieCategoryLabel(
     movieCategoryLabelViewState: MovieCategoryLabelViewState,
     modifier: Modifier = Modifier,
-    onLabelClick: () -> Unit
+    onLabelClick: () -> Unit,
 ) {
     Column(modifier = modifier.padding(10.dp)) {
         var selected = movieCategoryLabelViewState.isSelected
@@ -39,7 +39,7 @@ fun MovieCategoryLabel(
             modifier = Modifier
                 .width(intrinsicSize = IntrinsicSize.Max)
                 .clickable(onClick = onLabelClick)
-            ) {
+        ) {
             Text(
                 modifier = Modifier.clickable { selected = !selected },
                 text = TextSource(movieCategoryLabelViewState = movieCategoryLabelViewState),
@@ -68,7 +68,6 @@ fun TextSource(movieCategoryLabelViewState: MovieCategoryLabelViewState): String
     }
 }
 
-/*
 @Preview
 @Composable
 fun MovieCategoryLabelPreview() {
@@ -76,7 +75,8 @@ fun MovieCategoryLabelPreview() {
         itemId = 2,
         isSelected = false,
         categoryText = MovieCategoryLabelTextViewState.MovieCategoryString("Movies")),
-        modifier = Modifier.padding(5.dp)
+        modifier = Modifier.padding(5.dp),
+        onLabelClick = {}
     )
 }
- */
+

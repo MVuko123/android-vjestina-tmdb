@@ -189,7 +189,6 @@ fun Segment(
     }
 }
 
-/*
 @Preview
 @Composable
 fun HomeScreenPreview() {
@@ -198,9 +197,9 @@ fun HomeScreenPreview() {
             popularCategory = popularCategoryViewState,
             nowPlayingCategory = nowPlayingCategoryViewState,
             upcomingCategory = upcomingCategoryViewState,
-            onNavigateToMovieDetails = { it }
+            onNavigateToMovieDetails = { it },
+            onFavoriteClick = {},
+            onLabelClick = {}
         )
     }
 }
- */
-

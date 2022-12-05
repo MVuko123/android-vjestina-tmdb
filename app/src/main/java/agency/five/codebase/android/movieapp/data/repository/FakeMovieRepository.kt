@@ -21,7 +21,6 @@ class FakeMovieRepository(
             }
             .flowOn(ioDispatcher)
 
-
     override fun popularMovies(movieCategory: MovieCategory): Flow<List<Movie>> = movies
     override fun nowPlayingMovies(movieCategory: MovieCategory): Flow<List<Movie>> = movies
     override fun upcomingMovies(movieCategory: MovieCategory): Flow<List<Movie>> = movies

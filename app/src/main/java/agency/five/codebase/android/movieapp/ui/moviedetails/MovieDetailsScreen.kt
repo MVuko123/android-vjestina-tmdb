@@ -217,13 +217,13 @@ fun MovieDetailsCast(
     }
 }
 
-/*
 @Preview
 @Composable
 fun MovieDetailsScreenPreview() {
     MovieAppTheme {
         MovieDetailsScreen(
-            movieDetailsViewState = movieDetailsViewState
+            movieDetailsViewState = movieDetailsViewState,
+            onFavoriteClick = {}
         )
     }
-} */
+}

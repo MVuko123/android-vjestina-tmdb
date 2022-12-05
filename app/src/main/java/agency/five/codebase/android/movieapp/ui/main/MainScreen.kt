@@ -106,8 +106,9 @@ fun MainScreen() {
                     arguments = listOf(navArgument(MOVIE_ID_KEY) { type = NavType.IntType }),
                 ) {
                     val movieId = it.arguments?.getInt(MOVIE_ID_KEY)
-                    val movieDetailsViewModel = getViewModel<MovieDetailsViewModel>(parameters = { parametersOf(movieId) })
-                    MovieDetailsRoute( movieDetailsViewModel = movieDetailsViewModel)
+                    val movieDetailsViewModel =
+                        getViewModel<MovieDetailsViewModel>(parameters = { parametersOf(movieId) })
+                    MovieDetailsRoute(movieDetailsViewModel = movieDetailsViewModel)
                 }
             }
         }

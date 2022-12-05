@@ -1,7 +1,6 @@
 package agency.five.codebase.android.movieapp.mock
 
 import kotlinx.coroutines.flow.*
-import java.lang.reflect.TypeVariable
 
 object FavoritesDBMock {
     private val _favoriteIds = MutableStateFlow<Set<Int>>(setOf())

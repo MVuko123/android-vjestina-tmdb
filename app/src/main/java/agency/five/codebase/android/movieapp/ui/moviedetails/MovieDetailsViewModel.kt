@@ -37,6 +37,4 @@ class MovieDetailsViewModel(
             movieRepository.toggleFavorite(movieId)
         }
     }
-
 }
-
