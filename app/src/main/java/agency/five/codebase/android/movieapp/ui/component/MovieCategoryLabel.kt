@@ -38,10 +38,9 @@ fun MovieCategoryLabel(
         Column(
             modifier = Modifier
                 .width(intrinsicSize = IntrinsicSize.Max)
-                .clickable(onClick = onLabelClick)
+                .clickable{ onLabelClick() }
         ) {
             Text(
-                modifier = Modifier.clickable { selected = !selected },
                 text = TextSource(movieCategoryLabelViewState = movieCategoryLabelViewState),
                 fontWeight = if (selected) FontWeight.Bold else FontWeight.Light,
                 color = MaterialTheme.colors.onSurface,
