@@ -125,7 +125,8 @@ fun MovieDetailsBanner(
                 favoriteClick = {
                     onFavoriteClick(movieDetailsViewState.id
                     )
-                })
+                }
+            )
         }
     }
 }
