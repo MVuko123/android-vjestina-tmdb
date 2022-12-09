@@ -71,9 +71,9 @@ fun HomeRoute(
         upcomingCategory = upcomingCategory,
         onNavigateToMovieDetails = onNavigateToMovieDetails,
         onFavoriteClick = { homeViewModel.toggleFav(it) },
-        onPopularClick = { homeViewModel.togglePopular(it) },
-        onNowPlayingClick = { homeViewModel.toggleNowPlaying(it) },
-        onUpcomingClick = { homeViewModel.toggleUpcoming(it) }
+        onPopularClick = { homeViewModel.newListPopular(it) },
+        onNowPlayingClick = { homeViewModel.newListNowPlaying(it) },
+        onUpcomingClick = { homeViewModel.newListUpcoming(it) }
     )
 }
 

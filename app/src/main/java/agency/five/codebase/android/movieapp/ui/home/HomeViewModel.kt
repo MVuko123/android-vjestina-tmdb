@@ -72,8 +72,7 @@ class HomeViewModel(
         }
     }
 
-
-    fun togglePopular(labelId : Int){
+    fun newListPopular(labelId : Int){
         viewModelScope.launch {
             movieRepository.popularMovies(MovieCategory.POPULAR_STREAMING).collect {
                 _popularMoviesHomeViewState.value = homeScreenMapper.toHomeMovieCategoryViewState(
@@ -85,7 +84,7 @@ class HomeViewModel(
         }
     }
 
-    fun toggleNowPlaying(labelId : Int){
+    fun newListNowPlaying(labelId : Int){
         viewModelScope.launch {
             movieRepository.nowPlayingMovies(MovieCategory.NOW_PLAYING_MOVIES).collect {
                 _nowPlayingMoviesHomeViewState.value =
@@ -98,7 +97,7 @@ class HomeViewModel(
         }
     }
 
-    fun toggleUpcoming(labelId : Int){
+    fun newListUpcoming(labelId : Int){
         viewModelScope.launch {
             movieRepository.upcomingMovies(MovieCategory.UPCOMING_TODAY).collect {
                 _upcomingMovieHomeViewState.value = homeScreenMapper.toHomeMovieCategoryViewState(
