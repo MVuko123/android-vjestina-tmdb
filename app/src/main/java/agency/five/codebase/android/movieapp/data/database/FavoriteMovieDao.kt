@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FavoriteMovieDao {
-    @Query("SELECT * FROM DbFavoriteMovie")
+    @Query("SELECT * FROM favoriteMovie")
     fun favorites(): Flow<List<DbFavoriteMovie>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
