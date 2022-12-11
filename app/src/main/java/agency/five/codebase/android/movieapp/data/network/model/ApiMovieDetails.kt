@@ -1,8 +1,6 @@
 package agency.five.codebase.android.movieapp.data.network.model
 
-import agency.five.codebase.android.movieapp.model.Actor
-import agency.five.codebase.android.movieapp.model.Crewman
-import agency.five.codebase.android.movieapp.model.Movie
+
 import agency.five.codebase.android.movieapp.model.MovieDetails
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -23,18 +21,19 @@ data class ApiMovieDetails(
     val runtime: Int,
 ){
     fun toMovieDetails(
-        movie: Movie,
-        crew: List<Crewman>,
-        cast: List<Actor>
+        crew: List<ApiCrew>,
+        cast: List<ApiCast>,
+        isFavorite: Boolean
     ):MovieDetails{
        return MovieDetails(
-           movie = movie,
+           movie = ApiMovie,
            voteAverage = voteAverage,
            releaseDate = releaseDate,
            language = language,
            runtime = runtime,
            crew = crew,
-           cast = cast
+           cast = cast,
+           isFavorite = isFavorite
        )
     }
 }

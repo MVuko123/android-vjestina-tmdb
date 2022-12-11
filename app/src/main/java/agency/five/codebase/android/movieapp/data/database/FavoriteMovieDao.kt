@@ -13,8 +13,8 @@ interface FavoriteMovieDao {
     fun favorites(): Flow<List<DbFavoriteMovie>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertIntoFavorites(dbFavoriteMovie: DbFavoriteMovie)
+    fun insertIntoFavorites(movieId: Int)
 
     @Delete
-    fun deleteFromFavorites(dbFavoriteMovie: DbFavoriteMovie)
+    fun deleteFromFavorites(movieId: Int)
 }

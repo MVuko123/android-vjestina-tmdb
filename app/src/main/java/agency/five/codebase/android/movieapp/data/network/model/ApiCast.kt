@@ -18,12 +18,11 @@ data class ApiCast(
     val castPath: String?
 ){
     fun toCast(): Actor{
-        val CAST_IMAGE_URL = ""
         return Actor(
             id = id,
             name = firstName+lastName,
             character = character,
-            imageUrl = "$CAST_IMAGE_URL/$castPath"
+            imageUrl = "$castPath"
         )
     }
 }

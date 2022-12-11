@@ -1,5 +1,8 @@
 package agency.five.codebase.android.movieapp.mock
 
+import agency.five.codebase.android.movieapp.data.network.model.ApiCast
+import agency.five.codebase.android.movieapp.data.network.model.ApiCrew
+import agency.five.codebase.android.movieapp.data.network.model.ApiMovie
 import agency.five.codebase.android.movieapp.model.Actor
 import agency.five.codebase.android.movieapp.model.Crewman
 import agency.five.codebase.android.movieapp.model.Movie
@@ -46,32 +49,29 @@ object MoviesMock {
     )
 
     fun getMovieDetails(): MovieDetails = MovieDetails(
-        movie = Movie(
-            id = 5,
-            title = "Spider-Man: No Way Home",
-            overview = "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
-            imageUrl = "https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
-            isFavorite = false,
-        ),
+        movie = ApiMovie,
         voteAverage = 0.81f,
         releaseDate = "17/12/2021",
         language = "US",
         runtime = 148,
         crew = List(6) {
-            Crewman(
+            ApiCrew(
                 id = it,
-                name = "Jon Watts",
+                firstName = "Jon",
+                lastName = "Watts",
                 job = "Director",
             )
         },
         cast = List(6) {
-            Actor(
+            ApiCast(
                 id = it,
-                name = "Tom Holland",
+                firstName = "Tom",
+                lastName = "Holland",
                 character = "Peter Parker / Spider-Man",
-                imageUrl = "https://image.tmdb.org/t/p/w200/bBRlrpJm9XkNSg0YT5LCaxqoFMX.jpg"
+                castPath = "https://image.tmdb.org/t/p/w200/bBRlrpJm9XkNSg0YT5LCaxqoFMX.jpg"
             )
         },
+        isFavorite = true,
     )
 
     fun getCrewman(): Crewman = Crewman(
@@ -88,12 +88,13 @@ object MoviesMock {
     )
 
     fun getMovieDetails(movieId: Int): MovieDetails = MovieDetails(
-        movie = getMoviesList().first { it.id == movieId },
+        movie = ApiMovie,
         voteAverage = getMovieDetails().voteAverage,
         releaseDate = getMovieDetails().releaseDate,
         language = getMovieDetails().language,
         runtime = getMovieDetails().runtime,
         crew = getMovieDetails().crew,
-        cast = getMovieDetails().cast
+        cast = getMovieDetails().cast,
+        isFavorite = true
     )
 }
