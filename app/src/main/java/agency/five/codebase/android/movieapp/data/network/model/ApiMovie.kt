@@ -1,5 +1,6 @@
 package agency.five.codebase.android.movieapp.data.network.model
 
+import agency.five.codebase.android.movieapp.data.network.BASE_IMAGE_URL
 import agency.five.codebase.android.movieapp.model.Movie
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -22,7 +23,6 @@ data class ApiMovie(
     val releaseDate: String? = null,
 ) {
     fun toMovie(isFavorite: Boolean): Movie {
-        val BASE_IMAGE_URL = ""
         return Movie(
             id = id,
             title = title,

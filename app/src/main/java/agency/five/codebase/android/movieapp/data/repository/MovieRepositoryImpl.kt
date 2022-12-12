@@ -32,7 +32,7 @@ class MovieRepositoryImpl (
                     MovieCategory.UPCOMING_THIS_WEEK -> R.string.this_week
                 }
                 emit(movieResponse.movies)
-            }.flatMapLatest { apiMovies ->
+            }.flatMapLatest {  apiMovies ->
                 movieDao.favorites()
                     .map {  favoriteMovies ->
                         apiMovies.map { apiMovie ->
@@ -81,7 +81,7 @@ class MovieRepositoryImpl (
     override fun favoriteMovies(): Flow<List<Movie>> = favorites
 
     override suspend fun addMovieToFavorites(movieId: Int) {
-        movieDao.insertIntoFavorites(movieId)
+        movieDao.insertIntoFavorites(dbFavoriteMovie.copy(movieId))
     }
 
     override suspend fun removeMovieFromFavorites(movieId: Int) {

@@ -4,8 +4,8 @@ import agency.five.codebase.android.movieapp.data.network.model.ApiMovieDetails
 import agency.five.codebase.android.movieapp.data.network.model.MovieCreditsResponse
 import agency.five.codebase.android.movieapp.data.network.model.MovieResponse
 import io.ktor.client.*
+import io.ktor.client.call.*
 import io.ktor.client.request.*
-import io.ktor.client.statement.*
 import io.ktor.http.*
 
 const val BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
@@ -20,7 +20,7 @@ class MovieServiceImpl(private val client: HttpClient) : MovieService {
                 host = BASE_URL
                 path("/movie/popular?api_key=$API_KEY")
             }
-        }
+        }.body()
     }
 
     override suspend fun fetchNowPlayingMovies(): MovieResponse {
@@ -30,7 +30,7 @@ class MovieServiceImpl(private val client: HttpClient) : MovieService {
                 host = BASE_URL
                 path("/movie/now_playing?api_key=$API_KEY")
             }
-        }
+        }.body()
     }
 
     override suspend fun fetchUpcomingMovies(): MovieResponse {
@@ -40,7 +40,7 @@ class MovieServiceImpl(private val client: HttpClient) : MovieService {
                 host = BASE_URL
                 path("/movie/upcoming?api_key=$API_KEY")
             }
-        }
+        }.body()
     }
 
     override suspend fun fetchTopRatedMovies(): MovieResponse {
@@ -50,7 +50,7 @@ class MovieServiceImpl(private val client: HttpClient) : MovieService {
                 host = BASE_URL
                 path("/movie/top_rated?api_key=$API_KEY")
             }
-        }
+        }.body()
     }
 
     override suspend fun fetchMovieDetails(movieId: Int): ApiMovieDetails {
@@ -60,7 +60,7 @@ class MovieServiceImpl(private val client: HttpClient) : MovieService {
                 host = BASE_URL
                 path("/movie/$movieId?api_key=$API_KEY")
             }
-        }
+        }.body()
     }
 
     override suspend fun fetchMovieCredits(movieId: Int): MovieCreditsResponse {
@@ -70,6 +70,6 @@ class MovieServiceImpl(private val client: HttpClient) : MovieService {
                 host = BASE_URL
                 path("/movie/$movieId/credits?api_key=$API_KEY")
             }
-        }
+        }.body()
     }
 }

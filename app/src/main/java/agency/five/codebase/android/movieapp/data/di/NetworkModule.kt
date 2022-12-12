@@ -4,7 +4,7 @@ import agency.five.codebase.android.movieapp.data.network.MovieService
 import agency.five.codebase.android.movieapp.data.network.MovieServiceImpl
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
-import io.ktor.client.features.logging.*
+import io.ktor.client.plugins.logging.*
 import org.koin.dsl.module
 
 
