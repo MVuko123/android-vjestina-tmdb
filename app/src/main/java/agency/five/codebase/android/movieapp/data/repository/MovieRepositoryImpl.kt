@@ -22,14 +22,14 @@ class MovieRepositoryImpl (
         .associateWith { movieCategory ->
             flow {
                 val movieResponse = when (movieCategory){
-                    MovieCategory.POPULAR_STREAMING -> R.string.streaming
-                    MovieCategory.POPULAR_ON_TV -> R.string.on_tv
-                    MovieCategory.POPULAR_FOR_RENT -> R.string.for_rent
-                    MovieCategory.POPULAR_IN_THEATRES -> R.string.in_theatres
-                    MovieCategory.NOW_PLAYING_MOVIES -> R.string.movies
-                    MovieCategory.NOW_PLAYING_TV -> R.string.tv
-                    MovieCategory.UPCOMING_TODAY -> R.string.today
-                    MovieCategory.UPCOMING_THIS_WEEK -> R.string.this_week
+                    MovieCategory.POPULAR_STREAMING -> movieService.fetchPopularMovies()
+                    MovieCategory.POPULAR_ON_TV -> movieService.fetchPopularMovies()
+                    MovieCategory.POPULAR_FOR_RENT -> movieService.fetchPopularMovies()
+                    MovieCategory.POPULAR_IN_THEATRES -> movieService.fetchPopularMovies()
+                    MovieCategory.NOW_PLAYING_MOVIES -> movieService.fetchNowPlayingMovies()
+                    MovieCategory.NOW_PLAYING_TV -> movieService.fetchNowPlayingMovies()
+                    MovieCategory.UPCOMING_TODAY -> movieService.fetchUpcomingMovies()
+                    MovieCategory.UPCOMING_THIS_WEEK -> movieService.fetchUpcomingMovies()
                 }
                 emit(movieResponse.movies)
             }.flatMapLatest {  apiMovies ->
@@ -71,9 +71,9 @@ class MovieRepositoryImpl (
         movieDao.favorites()
             .map { favoriteMovies ->
                 apiMovieDetails.toMovieDetails(
-                    isFavorite = favoriteMovies.any{ it.movieId == apiMovieDetails.id },
-                    crew = apiMovieCredits.crew,
-                    cast = apiMovieCredits.cast,
+                    isFavorite = favoriteMovies.any { it.movieId == apiMovieDetails.id },
+                    crew = apiMovieCredits.crew.map { it.toCrew() },
+                    cast = apiMovieCredits.cast.map { it.toCast() },
                 )
             }
     }.flowOn(bgDispatcher)

@@ -5,12 +5,12 @@ import agency.five.codebase.android.movieapp.data.network.model.ApiCrew
 import agency.five.codebase.android.movieapp.data.network.model.ApiMovie
 
 data class MovieDetails(
-    val movie: ApiMovie.Companion,
+    val movie: Movie,
     val voteAverage: Float,
     val releaseDate: String,
     val language: String,
     val runtime: Int,
-    val crew: List<ApiCrew>,
-    val cast: List<ApiCast>,
+    val crew: List<Crewman>,
+    val cast: List<Actor>,
     val isFavorite: Boolean,
 )
