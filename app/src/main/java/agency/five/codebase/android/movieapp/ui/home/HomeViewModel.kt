@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val movieService: MovieService,
+    //private val movieService: MovieService,
     private val movieRepository: MovieRepository,
     val homeScreenMapper: HomeScreenMapper,
 ) : ViewModel() {
@@ -39,37 +39,80 @@ class HomeViewModel(
 
     fun getPopular(homeScreenMapper: HomeScreenMapper) {
         viewModelScope.launch {
-            movieService.fetchPopularMovies()
+            movieRepository.movies(MovieCategory.POPULAR_STREAMING).collect {
+                _popularMoviesHomeViewState.value = homeScreenMapper.toHomeMovieCategoryViewState(
+                    movieCategories = popularCategory,
+                    selectedMovieCategory = MovieCategory.POPULAR_STREAMING,
+                    movies = it
+                )
+            }
         }
     }
 
     fun getNowPlaying(homeScreenMapper: HomeScreenMapper) {
         viewModelScope.launch {
-            movieService.fetchNowPlayingMovies()
+            //movieService.fetchNowPlayingMovies()
+            movieRepository.movies(MovieCategory.NOW_PLAYING_MOVIES).collect {
+                _nowPlayingMoviesHomeViewState.value =
+                    homeScreenMapper.toHomeMovieCategoryViewState(
+                        movieCategories = nowPlayingCategory,
+                        selectedMovieCategory = MovieCategory.NOW_PLAYING_MOVIES,
+                        movies = it
+                    )
+            }
         }
     }
 
     fun getUpcoming(homeScreenMapper: HomeScreenMapper) {
         viewModelScope.launch {
-            movieService.fetchUpcomingMovies()
+            //movieService.fetchUpcomingMovies()
+            movieRepository.movies(MovieCategory.UPCOMING_TODAY).collect {
+                _upcomingMovieHomeViewState.value = homeScreenMapper.toHomeMovieCategoryViewState(
+                    movieCategories = upcomingCategory,
+                    selectedMovieCategory = MovieCategory.UPCOMING_TODAY,
+                    movies = it
+                )
+            }
         }
     }
 
     fun newListPopular(labelId : Int){
         viewModelScope.launch {
-            movieService.fetchPopularMovies()
+            //movieService.fetchPopularMovies()
+            movieRepository.movies(MovieCategory.POPULAR_STREAMING).collect {
+                _popularMoviesHomeViewState.value = homeScreenMapper.toHomeMovieCategoryViewState(
+                    movieCategories = popularCategory,
+                    selectedMovieCategory = MovieCategory.getByOrdinal(labelId)!!,
+                    movies = it
+                )
+            }
         }
     }
 
     fun newListNowPlaying(labelId : Int){
         viewModelScope.launch {
-            movieService.fetchNowPlayingMovies()
+            //movieService.fetchNowPlayingMovies()
+            movieRepository.movies(MovieCategory.NOW_PLAYING_MOVIES).collect {
+                _nowPlayingMoviesHomeViewState.value =
+                    homeScreenMapper.toHomeMovieCategoryViewState(
+                        movieCategories = nowPlayingCategory,
+                        selectedMovieCategory = MovieCategory.getByOrdinal(labelId)!!,
+                        movies = it
+                    )
+            }
         }
     }
 
     fun newListUpcoming(labelId : Int){
         viewModelScope.launch {
-            movieService.fetchUpcomingMovies()
+            //movieService.fetchUpcomingMovies()
+            movieRepository.movies(MovieCategory.UPCOMING_TODAY).collect {
+                _upcomingMovieHomeViewState.value = homeScreenMapper.toHomeMovieCategoryViewState(
+                    movieCategories = upcomingCategory,
+                    selectedMovieCategory = MovieCategory.getByOrdinal(labelId)!!,
+                    movies = it
+                )
+            }
         }
     }
 

@@ -1,8 +1,6 @@
 package agency.five.codebase.android.movieapp.mock
 
-import agency.five.codebase.android.movieapp.data.network.model.ApiCast
-import agency.five.codebase.android.movieapp.data.network.model.ApiCrew
-import agency.five.codebase.android.movieapp.data.network.model.ApiMovie
+
 import agency.five.codebase.android.movieapp.model.Actor
 import agency.five.codebase.android.movieapp.model.Crewman
 import agency.five.codebase.android.movieapp.model.Movie

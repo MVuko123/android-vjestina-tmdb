@@ -4,14 +4,16 @@ import agency.five.codebase.android.movieapp.ui.moviedetails.MovieDetailsViewMod
 import agency.five.codebase.android.movieapp.ui.moviedetails.mapper.MovieDetailsMapper
 import agency.five.codebase.android.movieapp.ui.moviedetails.mapper.MovieDetailsMapperImpl
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val movieDetailsModule = module {
     viewModel {
+        (movieId : Int) ->
         MovieDetailsViewModel(
-            movieRepository = get(),
+            movieRepository = get(named("IODispatcher")),
             movieDetailsMapper = get(),
-            movieId = get()
+            movieId = movieId
         )
     }
     single<MovieDetailsMapper> { MovieDetailsMapperImpl() }

@@ -8,5 +8,7 @@ data class MovieCreditsResponse(
     @SerialName("cast")
     val cast: List<ApiCast>,
     @SerialName("crew")
-    val crew: List<ApiCrew>
+    val crew: List<ApiCrew>,
+    @SerialName("id")
+    val id: Int
 )

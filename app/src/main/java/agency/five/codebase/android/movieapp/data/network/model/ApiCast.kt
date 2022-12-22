@@ -1,5 +1,6 @@
 package agency.five.codebase.android.movieapp.data.network.model
 
+import agency.five.codebase.android.movieapp.data.network.BASE_IMAGE_URL
 import agency.five.codebase.android.movieapp.model.Actor
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -17,12 +18,11 @@ data class ApiCast(
     @SerialName("castPath")
     val castPath: String?
 ){
-    fun toCast(): Actor{
-        return Actor(
+    fun toCast() = Actor(
             id = id,
             name = firstName+lastName,
             character = character,
-            imageUrl = "$castPath"
-        )
-    }
+            imageUrl = "$BASE_IMAGE_URL/$castPath"
+    )
+
 }

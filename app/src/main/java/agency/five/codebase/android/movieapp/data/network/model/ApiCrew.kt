@@ -15,11 +15,9 @@ data class ApiCrew(
     @SerialName("job")
     val job: String
 ){
-    fun toCrew(): Crewman{
-        return Crewman(
+    fun toCrew() = Crewman(
             id = id,
             name = firstName+lastName,
             job = job
         )
-    }
 }

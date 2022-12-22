@@ -4,9 +4,7 @@ import agency.five.codebase.android.movieapp.data.repository.MovieRepository
 import agency.five.codebase.android.movieapp.ui.favorites.mapper.FavoritesMapper
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class FavoritesViewModel(
@@ -24,9 +22,15 @@ class FavoritesViewModel(
 
     private fun getFavorite() {
         viewModelScope.launch {
-            movieRepository.favoriteMovies().collect { movie ->
-                _favoritesMovieViewState.value = favoritesMapper.toFavoritesViewState(movie)
-            }
+            movieRepository.favoriteMovies().map { movies ->
+                favoritesMapper.toFavoritesViewState(movies)
+            }.stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000L),
+                initialValue = FavoritesViewState(
+                    emptyList()
+                )
+            )
         }
     }
 
