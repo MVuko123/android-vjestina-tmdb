@@ -11,7 +11,6 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
-
 val networkModule = module {
     single<MovieService> { MovieServiceImpl(client = get()) }
     single {

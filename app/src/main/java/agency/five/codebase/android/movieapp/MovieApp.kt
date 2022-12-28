@@ -17,8 +17,6 @@ class MovieApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        Log.d("MovieApp", "App started")
-
         startKoin {
             androidLogger(Level.INFO)
             androidContext(this@MovieApp)
@@ -31,5 +29,7 @@ class MovieApp : Application() {
                 movieDetailsModule,
             )
         }
+
+        Log.d("MovieApp", "App started")
     }
 }

@@ -6,18 +6,16 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ApiCrew(
-    @SerialName("crewId")
+    @SerialName("id")
     val id: Int,
-    @SerialName("firstNameCrew")
-    val firstName: String,
-    @SerialName("lastNameCrew")
-    val lastName: String,
+    @SerialName("name")
+    val name: String,
     @SerialName("job")
     val job: String
 ){
     fun toCrew() = Crewman(
             id = id,
-            name = firstName+lastName,
+            name = name,
             job = job
-        )
+    )
 }

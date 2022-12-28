@@ -1,9 +1,6 @@
 package agency.five.codebase.android.movieapp.data.network.model
 
-
 import agency.five.codebase.android.movieapp.data.network.BASE_IMAGE_URL
-import agency.five.codebase.android.movieapp.model.Actor
-import agency.five.codebase.android.movieapp.model.Crewman
 import agency.five.codebase.android.movieapp.model.Movie
 import agency.five.codebase.android.movieapp.model.MovieDetails
 import kotlinx.serialization.SerialName
@@ -11,19 +8,19 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ApiMovieDetails(
-    @SerialName("movieDetailsId")
+    @SerialName("id")
     val id: Int,
-    @SerialName("movieTitle")
+    @SerialName("title")
     val title: String,
-    @SerialName("releaseDate")
+    @SerialName("release_date")
     val releaseDate: String,
-    @SerialName("voteAverage")
+    @SerialName("vote_average")
     val voteAverage: Float,
-    @SerialName("language")
+    @SerialName("original_language")
     val language: String,
     @SerialName("runtime")
     val runtime: Int,
-    @SerialName("posterPath")
+    @SerialName("poster_path")
     val posterPath: String?,
     @SerialName("overview")
     val overview: String
@@ -47,5 +44,5 @@ data class ApiMovieDetails(
            crew = crew.map { it.toCrew() } ,
            cast = cast.map { it.toCast() },
            isFavorite = isFavorite
-       )
+    )
 }

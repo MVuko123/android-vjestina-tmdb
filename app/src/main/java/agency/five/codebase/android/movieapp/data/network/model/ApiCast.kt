@@ -7,22 +7,19 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ApiCast(
-    @SerialName("castId")
+    @SerialName("id")
     val id: Int,
-    @SerialName("firstNameCast")
-    val firstName: String,
-    @SerialName("lastNameCast")
-    val lastName: String,
+    @SerialName("name")
+    val name: String,
     @SerialName("character")
     val character: String,
-    @SerialName("castPath")
+    @SerialName("profile_path")
     val castPath: String?
 ){
     fun toCast() = Actor(
             id = id,
-            name = firstName+lastName,
+            name = name,
             character = character,
             imageUrl = "$BASE_IMAGE_URL/$castPath"
     )
-
 }

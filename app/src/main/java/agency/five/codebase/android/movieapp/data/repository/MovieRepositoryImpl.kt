@@ -30,7 +30,7 @@ class MovieRepositoryImpl (
                     MovieCategory.POPULAR_ON_TV -> movieService.fetchUpcomingMovies()
                     MovieCategory.POPULAR_FOR_RENT -> movieService.fetchTopRatedMovies()
                     MovieCategory.POPULAR_IN_THEATRES -> movieService.fetchNowPlayingMovies()
-                    MovieCategory.NOW_PLAYING_MOVIES -> movieService.fetchNowPlayingMovies()
+                    MovieCategory.NOW_PLAYING_MOVIES -> movieService.fetchUpcomingMovies()
                     MovieCategory.NOW_PLAYING_TV -> movieService.fetchPopularMovies()
                     MovieCategory.UPCOMING_TODAY -> movieService.fetchUpcomingMovies()
                     MovieCategory.UPCOMING_THIS_WEEK -> movieService.fetchPopularMovies()
@@ -114,7 +114,6 @@ class MovieRepositoryImpl (
         return movie
     }
 
-
     override suspend fun toggleFavorite(movieId: Int) {
         runBlocking(bgDispatcher) {
             val favoriteMovies = findMovie(movieId)
@@ -125,5 +124,5 @@ class MovieRepositoryImpl (
             }
         }
     }
-
+    //runBlocking - Runs a new coroutine and blocks the current thread interruptibly until its completion.
 }

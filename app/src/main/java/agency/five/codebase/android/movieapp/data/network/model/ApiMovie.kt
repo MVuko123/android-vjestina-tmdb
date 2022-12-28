@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ApiMovie(
-    @SerialName("movieId")
+    @SerialName("id")
     val id: Int,
     @SerialName("title")
     val title: String,
