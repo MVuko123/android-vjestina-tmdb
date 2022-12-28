@@ -31,12 +31,16 @@ data class MovieCategoryLabelViewState(
 fun MovieCategoryLabel(
     movieCategoryLabelViewState: MovieCategoryLabelViewState,
     modifier: Modifier = Modifier,
+    onLabelClick: () -> Unit,
 ) {
     Column(modifier = modifier.padding(10.dp)) {
         var selected = movieCategoryLabelViewState.isSelected
-        Column(modifier = Modifier.width(intrinsicSize = IntrinsicSize.Max)) {
+        Column(
+            modifier = Modifier
+                .width(intrinsicSize = IntrinsicSize.Max)
+                .clickable{ onLabelClick() }
+        ) {
             Text(
-                modifier = Modifier.clickable { selected = !selected },
                 text = TextSource(movieCategoryLabelViewState = movieCategoryLabelViewState),
                 fontWeight = if (selected) FontWeight.Bold else FontWeight.Light,
                 color = MaterialTheme.colors.onSurface,
@@ -70,6 +74,8 @@ fun MovieCategoryLabelPreview() {
         itemId = 2,
         isSelected = false,
         categoryText = MovieCategoryLabelTextViewState.MovieCategoryString("Movies")),
-        modifier = Modifier.padding(5.dp)
+        modifier = Modifier.padding(5.dp),
+        onLabelClick = {}
     )
 }
+

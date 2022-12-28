@@ -11,9 +11,8 @@ import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,14 +24,17 @@ val favoritesMovieViewState = favoritesMapper.toFavoritesViewState(MoviesMock.ge
 
 @Composable
 fun FavoritesRoute(
+    favoritesViewModel: FavoritesViewModel,
     modifier: Modifier = Modifier,
     onNavigateToMovieDetails: (String) -> Unit,
 ) {
-    val favoriteState by remember { mutableStateOf(favoritesMovieViewState) }
+    val favoriteState: FavoritesViewState by favoritesViewModel.favoritesMovieViewState.collectAsState()
+
     FavoriteScreen(
         favoritesViewState = favoriteState,
         modifier = modifier.padding(10.dp),
-        onNavigateToMovieDetails = onNavigateToMovieDetails
+        onNavigateToMovieDetails = onNavigateToMovieDetails,
+        onFavoriteClick = { favoritesViewModel.toggleFav(it) }
     )
 }
 
@@ -41,6 +43,7 @@ fun FavoriteScreen(
     favoritesViewState: FavoritesViewState,
     modifier: Modifier = Modifier,
     onNavigateToMovieDetails: (String) -> Unit,
+    onFavoriteClick: (Int) -> Unit,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
@@ -67,8 +70,11 @@ fun FavoriteScreen(
                     .height(200.dp)
                     .width(150.dp),
                 movieCardViewState = movie.movieCard,
-                toMovieDetails = { onNavigateToMovieDetails(NavigationItem.MovieDetailsDestination.createNavigationRoute(movie.favoriteMovieId)) },
-                onFavoriteClick = {}
+                toMovieDetails = {
+                    onNavigateToMovieDetails(NavigationItem.MovieDetailsDestination.createNavigationRoute(
+                        movie.favoriteMovieId))
+                },
+                onFavoriteClick = { onFavoriteClick(movie.favoriteMovieId) }
             )
         }
     }
@@ -84,6 +90,11 @@ fun LazyGridScope.header(
 @Composable
 fun FavoriteScreenPreview() {
     MovieAppTheme {
-        FavoriteScreen(favoritesViewState = favoritesMovieViewState, modifier = Modifier) {}
+        FavoriteScreen(
+            favoritesViewState = favoritesMovieViewState,
+            modifier = Modifier,
+            onNavigateToMovieDetails = {},
+            onFavoriteClick = {}
+        )
     }
 }

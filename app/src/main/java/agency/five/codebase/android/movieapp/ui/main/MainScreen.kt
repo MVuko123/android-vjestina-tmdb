@@ -4,8 +4,11 @@ import agency.five.codebase.android.movieapp.R
 import agency.five.codebase.android.movieapp.navigation.MOVIE_ID_KEY
 import agency.five.codebase.android.movieapp.navigation.NavigationItem
 import agency.five.codebase.android.movieapp.ui.favorites.FavoritesRoute
+import agency.five.codebase.android.movieapp.ui.favorites.FavoritesViewModel
 import agency.five.codebase.android.movieapp.ui.home.HomeRoute
+import agency.five.codebase.android.movieapp.ui.home.HomeViewModel
 import agency.five.codebase.android.movieapp.ui.moviedetails.MovieDetailsRoute
+import agency.five.codebase.android.movieapp.ui.moviedetails.MovieDetailsViewModel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,6 +30,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import org.koin.androidx.compose.getViewModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
 fun MainScreen() {
@@ -36,6 +41,8 @@ fun MainScreen() {
         mutableStateOf(true)
     }
     val showBackIcon = !showBottomBar
+    val homeViewModel = getViewModel<HomeViewModel>()
+    val favoritesViewModel = getViewModel<FavoritesViewModel>()
     Scaffold(
         topBar = {
             TopBar(
@@ -78,6 +85,7 @@ fun MainScreen() {
             ) {
                 composable(NavigationItem.HomeDestination.route) {
                     HomeRoute(
+                        homeViewModel = homeViewModel,
                         onNavigateToMovieDetails = {
                             showBottomBar = showBottomBar.not()
                             navController.navigate(it)
@@ -86,6 +94,7 @@ fun MainScreen() {
                 }
                 composable(NavigationItem.FavoritesDestination.route) {
                     FavoritesRoute(
+                        favoritesViewModel = favoritesViewModel,
                         onNavigateToMovieDetails = {
                             showBottomBar = showBottomBar.not()
                             navController.navigate(it)
@@ -96,7 +105,10 @@ fun MainScreen() {
                     route = NavigationItem.MovieDetailsDestination.route,
                     arguments = listOf(navArgument(MOVIE_ID_KEY) { type = NavType.IntType }),
                 ) {
-                    MovieDetailsRoute()
+                    val movieId = it.arguments?.getInt(MOVIE_ID_KEY)
+                    val movieDetailsViewModel =
+                        getViewModel<MovieDetailsViewModel>(parameters = { parametersOf(movieId) })
+                    MovieDetailsRoute(movieDetailsViewModel = movieDetailsViewModel)
                 }
             }
         }

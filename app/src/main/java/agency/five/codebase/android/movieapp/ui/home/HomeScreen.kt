@@ -6,14 +6,12 @@ import agency.five.codebase.android.movieapp.navigation.NavigationItem
 import agency.five.codebase.android.movieapp.ui.component.MovieCard
 import agency.five.codebase.android.movieapp.ui.component.MovieCardViewState
 import agency.five.codebase.android.movieapp.ui.component.MovieCategoryLabel
+import agency.five.codebase.android.movieapp.ui.component.MovieCategoryLabelViewState
 import agency.five.codebase.android.movieapp.ui.home.mapper.HomeScreenMapper
 import agency.five.codebase.android.movieapp.ui.home.mapper.HomeScreenMapperImpl
 import agency.five.codebase.android.movieapp.ui.theme.MovieAppTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.items
@@ -21,7 +19,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 
@@ -60,16 +58,22 @@ val upcomingCategoryViewState =
 
 @Composable
 fun HomeRoute(
+    homeViewModel: HomeViewModel,
     onNavigateToMovieDetails: (String) -> Unit,
 ) {
-    val popularCategory by remember { mutableStateOf(popularCategoryViewState) }
-    val nowPlayingCategory by remember { mutableStateOf(nowPlayingCategoryViewState) }
-    val upcomingCategory by remember { mutableStateOf(upcomingCategoryViewState) }
+    val popularCategory: HomeMovieCategoryViewState by homeViewModel.popularMoviesHomeViewState.collectAsState()
+    val nowPlayingCategory: HomeMovieCategoryViewState by homeViewModel.nowPlayingMoviesHomeViewState.collectAsState()
+    val upcomingCategory: HomeMovieCategoryViewState by homeViewModel.upcomingMovieHomeViewState.collectAsState()
+
     HomeScreen(
         popularCategory = popularCategory,
         nowPlayingCategory = nowPlayingCategory,
         upcomingCategory = upcomingCategory,
-        onNavigateToMovieDetails = onNavigateToMovieDetails
+        onNavigateToMovieDetails = onNavigateToMovieDetails,
+        onFavoriteClick = { homeViewModel.toggleFav(it) },
+        onPopularClick = { homeViewModel.newListPopular(it) },
+        onNowPlayingClick = { homeViewModel.newListNowPlaying(it) },
+        onUpcomingClick = { homeViewModel.newListUpcoming(it) }
     )
 }
 
@@ -79,13 +83,21 @@ fun HomeScreen(
     nowPlayingCategory: HomeMovieCategoryViewState,
     upcomingCategory: HomeMovieCategoryViewState,
     onNavigateToMovieDetails: (String) -> Unit,
+    onFavoriteClick: (Int) -> Unit,
+    onPopularClick: (Int) -> Unit,
+    onNowPlayingClick: (Int) -> Unit,
+    onUpcomingClick: (Int) -> Unit
 ) {
     Column(Modifier.verticalScroll(rememberScrollState())) {
         AllHomeScreen(
             popularCategory = popularCategory,
             nowPlayingCategory = nowPlayingCategory,
             upcomingCategory = upcomingCategory,
-            onNavigateToMovieDetails = onNavigateToMovieDetails
+            onNavigateToMovieDetails = onNavigateToMovieDetails,
+            onFavoriteClick = onFavoriteClick,
+            onPopularClick = onPopularClick,
+            onNowPlayingClick = onNowPlayingClick,
+            onUpcomingClick = onUpcomingClick
         )
     }
 }
@@ -96,21 +108,31 @@ fun AllHomeScreen(
     nowPlayingCategory: HomeMovieCategoryViewState,
     upcomingCategory: HomeMovieCategoryViewState,
     onNavigateToMovieDetails: (String) -> Unit,
+    onFavoriteClick: (Int) -> Unit,
+    onPopularClick: (Int) -> Unit,
+    onNowPlayingClick: (Int) -> Unit,
+    onUpcomingClick: (Int) -> Unit
 ) {
     Segment(
         homeViewState = popularCategory,
         title = "What's popular",
-        onNavigateToMovieDetails = onNavigateToMovieDetails
+        onNavigateToMovieDetails = onNavigateToMovieDetails,
+        onFavoriteClick = onFavoriteClick,
+        onLabelClick = onPopularClick
     )
     Segment(
         homeViewState = nowPlayingCategory,
         title = "Now Playing",
-        onNavigateToMovieDetails = onNavigateToMovieDetails
+        onNavigateToMovieDetails = onNavigateToMovieDetails,
+        onFavoriteClick = onFavoriteClick,
+        onLabelClick = onNowPlayingClick
     )
     Segment(
         homeViewState = upcomingCategory,
         title = "Upcoming",
-        onNavigateToMovieDetails = onNavigateToMovieDetails
+        onNavigateToMovieDetails = onNavigateToMovieDetails,
+        onFavoriteClick = onFavoriteClick,
+        onLabelClick = onUpcomingClick
     )
 }
 
@@ -120,6 +142,8 @@ fun Segment(
     title: String,
     modifier: Modifier = Modifier,
     onNavigateToMovieDetails: (String) -> Unit,
+    onFavoriteClick: (Int) -> Unit,
+    onLabelClick: (Int) -> Unit,
 ) {
     Text(
         modifier = modifier.padding(start = 20.dp, top = 10.dp),
@@ -135,8 +159,14 @@ fun Segment(
             items = homeViewState.movieCategories,
             key = { categories -> categories.itemId }
         ) { categories ->
+
             MovieCategoryLabel(
-                movieCategoryLabelViewState = categories
+                movieCategoryLabelViewState = MovieCategoryLabelViewState(
+                    categories.itemId,
+                    categories.isSelected,
+                    categories.categoryText
+                ),
+                onLabelClick = { onLabelClick(categories.itemId) }
             )
         }
     }
@@ -160,7 +190,7 @@ fun Segment(
                     onNavigateToMovieDetails(NavigationItem.MovieDetailsDestination.createNavigationRoute(
                         movies.id))
                 },
-                onFavoriteClick = {}
+                onFavoriteClick = { onFavoriteClick(movies.id) }
             )
         }
     }
@@ -174,7 +204,11 @@ fun HomeScreenPreview() {
             popularCategory = popularCategoryViewState,
             nowPlayingCategory = nowPlayingCategoryViewState,
             upcomingCategory = upcomingCategoryViewState,
-            onNavigateToMovieDetails = { it }
+            onNavigateToMovieDetails = { it },
+            onFavoriteClick = {},
+            onPopularClick = {},
+            onNowPlayingClick = {},
+            onUpcomingClick = {}
         )
     }
 }
