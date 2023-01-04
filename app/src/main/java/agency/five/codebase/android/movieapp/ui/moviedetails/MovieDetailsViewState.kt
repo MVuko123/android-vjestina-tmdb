@@ -2,13 +2,13 @@ package agency.five.codebase.android.movieapp.ui.moviedetails
 
 data class MovieDetailsViewState(
     val id: Int = 1,
-    val imageUrl: String? = " ",
-    val voteAverage: Float = 0.0f,
-    val title: String = " ",
-    val overview: String = " ",
-    val isFavorite: Boolean = false,
-    val crew: List<CrewViewState> = listOf(),
-    val cast: List<ActorViewState>  = listOf(),
+    val imageUrl: String?,
+    val voteAverage: Float,
+    val title: String,
+    val overview: String,
+    val isFavorite: Boolean,
+    val crew: List<CrewViewState>,
+    val cast: List<ActorViewState>,
 )
 
 data class CrewViewState(

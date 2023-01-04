@@ -58,7 +58,7 @@ fun UserScoreProgressBar(
             drawArc(
                 color = Color.Green,
                 startAngle = -90f,
-                sweepAngle = 360 * currentPercent.value,
+                sweepAngle = 36 * currentPercent.value,
                 useCenter = false,
                 style = Stroke(
                     5.dp.toPx(),
@@ -67,7 +67,7 @@ fun UserScoreProgressBar(
             )
         }
         Text(
-            text = "${percentage * 10}",
+            text = "${percentage}",
             color = Color.White,
             fontSize = TextUnit.Unspecified
         )

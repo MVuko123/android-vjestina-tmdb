@@ -10,7 +10,7 @@ val homeModule = module {
     viewModel {
         HomeViewModel(
             movieRepository = get(),
-            homeScreenMapper = get()
+            homeScreenMapper = get(),
         )
     }
     single<HomeScreenMapper> { HomeScreenMapperImpl() }
