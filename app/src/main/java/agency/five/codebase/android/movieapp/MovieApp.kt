@@ -1,5 +1,6 @@
 package agency.five.codebase.android.movieapp
 
+import agency.five.codebase.android.movieapp.data.di.concurrencyModule
 import agency.five.codebase.android.movieapp.data.di.dataModule
 import agency.five.codebase.android.movieapp.data.di.databaseModule
 import agency.five.codebase.android.movieapp.data.di.networkModule
@@ -25,6 +26,7 @@ class MovieApp : Application() {
                 dataModule,
                 databaseModule,
                 networkModule,
+                concurrencyModule,
                 favoritesModule,
                 homeModule,
                 movieDetailsModule,

@@ -22,13 +22,11 @@ data class ApiMovie(
     @SerialName("release_date")
     val releaseDate: String? = null,
 ) {
-    fun toMovie(isFavorite: Boolean): Movie {
-        return Movie(
+    fun toMovie(isFavorite: Boolean) = Movie(
             id = id,
             title = title,
             overview = overview,
             imageUrl = "$BASE_IMAGE_URL/$posterPath",
             isFavorite = isFavorite
-        )
-    }
+    )
 }
