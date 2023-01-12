@@ -1,5 +1,6 @@
 package agency.five.codebase.android.movieapp.mock
 
+
 import agency.five.codebase.android.movieapp.model.Actor
 import agency.five.codebase.android.movieapp.model.Crewman
 import agency.five.codebase.android.movieapp.model.Movie
@@ -72,6 +73,7 @@ object MoviesMock {
                 imageUrl = "https://image.tmdb.org/t/p/w200/bBRlrpJm9XkNSg0YT5LCaxqoFMX.jpg"
             )
         },
+        isFavorite = true,
     )
 
     fun getCrewman(): Crewman = Crewman(
@@ -86,14 +88,17 @@ object MoviesMock {
         character = "Tony Stark/Iron Man",
         imageUrl = "https://www.themoviedb.org/t/p/w200/5qHNjhtjMD4YWH3UP0rm4tKwxCL.jpg"
     )
-
+/*
     fun getMovieDetails(movieId: Int): MovieDetails = MovieDetails(
-        movie = getMoviesList().first { it.id == movieId },
+        movie = ApiMovie,
         voteAverage = getMovieDetails().voteAverage,
         releaseDate = getMovieDetails().releaseDate,
         language = getMovieDetails().language,
         runtime = getMovieDetails().runtime,
         crew = getMovieDetails().crew,
-        cast = getMovieDetails().cast
+        cast = getMovieDetails().cast,
+        isFavorite = true
     )
+
+ */
 }
